@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+        <record model="ir.cron" id="dgn_account_analytic_cron">
+            <field name="name">Diginet Subscriptions Expiration</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.subscription'"/>
+            <field name="function" eval="'dgn_cron_account_analytic_account'"/>
+            <field name="args" eval="'()'" />
+        </record>
+        <record model="ir.cron" id="dgn_cancel_cron">
+            <field name="name">Diginet Subscriptions Cancel</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.subscription'"/>
+            <field name="function" eval="'dgn_cron_cancel'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+		<record id="dgn_sale_subscription_view_form" model="ir.ui.view">
+			<field name="name">dgn.sale.subscription.form.view</field>
+        	<field name="model">sale.subscription</field>
+			<field name="inherit_id" ref="sale_contract.sale_subscription_view_form" />
+			<field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="cancel_date" />
+                    <field name="is_manual_date" attrs="{'invisible': ['|',('prepaid','=',True)]}"/>
+                    <field name="start_date_fee" attrs="{'invisible': ['|',('is_manual_date','=',False)],'required': [('is_manual_date','=',True)]}"/>
+                </field>
+                <field name="state" position="before">
+                    <field name="prepaid" invisible="1"/>
+                    <button name="prepare_free_order" string="Add Free Time"
+                            type="object" attrs="{'invisible': ['|',('state','in',['cancel','close']),('prepaid','=',False)]}"/>
+                </field>
+                <xpath expr="//button[1]" position="attributes">
+                    <attribute name="groups">dgn_config.group_sale_accountant</attribute>
+                </xpath>
+                <button name="set_open" position="replace">
+                    <button name="dgn_set_open" string="Start Subscription" type="object"
+							attrs="{'invisible': [('state','=','open')]}" class="oe_highlight"/>
+                </button>
+                <xpath expr="//button[3]" position="replace">
+                    <button name="prepare_cancel_order" string="Close Subscription"
+                            type="object" attrs="{'invisible': [('state','in',['draft','close','cancel'])]}"/>
+                    <attribute name="groups">base.group_system</attribute>
+                </xpath>
+                <xpath expr="//button[4]" position="replace">
+                    <button name="prepare_cancel_order" string="Cancel Subscription"
+                            type="object" context="{'cancel':1}"
+                            attrs="{'invisible': [('state','in',['cancel','close'])]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='recurring_invoice_line_ids']" position="replace">
+                    <field name="recurring_invoice_line_ids">
+                        <tree editable="bottom">
+                            <field name="product_id" context="{'default_recurring_invoice': True}"/>
+                            <field name="name"/>
+                            <field name="service_account"/>
+                            <field name="quantity" readonly="1" groups="base.group_no_one"/>
+                            <field name="actual_quantity"/>
+                            <field name="sold_quantity"/>
+                            <field name="uom_id" groups="product.group_uom"/>
+                            <field name="price_unit"/>
+                            <field name="discount" groups="sale.group_discount_per_so_line"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+                </xpath>
+				<xpath expr="//form/sheet/notebook/page" position='after'>
+					<page string="Actual subscription Lines" id="actual_lines">
+                            <div>
+                                <field name="project_line_ids">
+                                    <tree>
+                                        <field name="product_id" context="{'default_recurring_invoice': True}"/>
+                                        <field name="name"/>
+                                        <field name="quantity" readonly="1" groups="base.group_no_one"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="sold_quantity"/>
+                                        <field name="uom_id" groups="product.group_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="actual_recurring_total" class="oe_subtotal_footer_separator"
+                                        widget="monetary" options="{'currency_field': 'currency_id'}"
+                                        modifiers="{'readonly': true}"
+                                    />
+                                </group>
+                            </div>
+                        </page>
+				</xpath>
+			</field>
+		</record>
+
+        <record id="dgn_sale_subscription_view_form_inherit_sale_contract" model="ir.ui.view">
+			<field name="name">dgn.sale.subscription.form.view.inherit.sale.contract</field>
+        	<field name="model">sale.subscription</field>
+			<field name="inherit_id" ref="website_contract.sale_subscription_view_form_inherit_sale_contract" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page/div/button[2]" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_subscription_template_view_form" model="ir.ui.view">
+            <field name="name">sale.subscription.form.view</field>
+            <field name="model">sale.subscription.template</field>
+            <field name="inherit_id" ref="sale_contract.sale_subscription_template_view_form" />
+            <field name="arch" type="xml">
+                <field name="journal_id" position="before">
+                    <field name="prepaid" />
+                </field>
+            </field>
+        </record>
+        <menuitem id="sale_contract.menu_sale_subscription_root" name="Subscriptions" sequence="8"
+                  web_icon="sale_contract,static/description/icon.png"
+                  groups="sale_contract.group_sale_contract_view,dgn_config.group_sale_noc,dgn_config.group_sale_cus_care,dgn_config.group_sale_system_manager"/>
+	</data>
+
+    <data noupdate="1">
+        <record id="product_uom_month" model="product.uom">
+            <field name="name">Month(s)</field>
+            <field eval="ref('product.uom_categ_wtime')" name="category_id"/>
+            <field name="factor" eval="30"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="view_dgn_helpdesk_form" model="ir.ui.view">
+            <field name="name">dgn.helpdesk.ticket.form</field>
+            <field name="model">helpdesk.ticket</field>
+			<field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="assign_ticket_to_self_custom" string="I take it" type="object" class="oe_highlight"
+                            groups="helpdesk.group_helpdesk_user,dgn_config.group_sale_user_custom"/>
+                        <field name="stage_id" widget="statusbar"
+                            clickable="True" options="{'fold_field': 'fold'}"/>
+                    </header>
+                </xpath>
+                <field name="partner_email" position="after">
+                    <field name="partner_addr"/>
+                    <field name="partner_phone"/>
+                    <field name="source_doc"/>
+                </field>
+                <field name="deadline" position="before">
+                    <field name="create_date" readonly="1"/>
+                    <field name="expect_date"/>
+                </field>
+                <field name="deadline" position="after">
+                    <field name="total_ex_time" readonly="1"/>
+                    <field name="sale_team" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_dgn_helpdesk_sla_form" model="ir.ui.view">
+            <field name="name">helpdesk.sla.form</field>
+            <field name="model">helpdesk.sla</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_sla_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="replace">
+                    <group>
+                        <group>
+                            <separator colspan="2" string="Apply on"/>
+                            <field name="team_id" domain="[('use_sla', '=', True)]"/>
+                            <field name="priority"/>
+                            <field name="ticket_type_id" widget="selection"/>
+
+                            <separator colspan="2" string="Target" class="mt32"/>
+                            <field name="stage_id" string="Reach Stage" domain="[('team_ids', '=', team_id)]"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <label for="time_days" string="Reach In"/>
+                            <div>
+                                <field name="time_days" class="oe_inline"/> days<br/>
+                                <field name="time_hours" class="oe_inline"/> hours<br/>
+                                <field name="time_minutes" class="oe_inline"/> minutes
+                            </div>
+                        </group>
+                        <group>
+                            <label for="w_time_days" string="Warning In"/>
+                            <div>
+                                <field name="w_time_days" class="oe_inline"/> days<br/>
+                                <field name="w_time_hours" class="oe_inline"/> hours<br/>
+                                <field name="w_time_minutes" class="oe_inline"/> minutes
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="dgn_helpdesk_team_view_form" model="ir.ui.view">
+            <field name="name">dgn.helpdesk.team.form</field>
+            <field name="model">helpdesk.team</field>
+			<field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <h2 class="mt32">Team Lead</h2>
+                    <field name="user_id" string="Team Lead" required="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="dgn_helpdesk_tickets_view_search" model="ir.ui.view">
+            <field name="name">dgn.helpdesk.ticket.search</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+            <field name="arch" type="xml">
+                <field name="ticket_type_id" position="after">
+                    <field name="source_doc"/>
+                </field>
+            </field>
+        </record>
+        <record id="dgn_helpdesk_ticket_action_main_tree" model="ir.actions.act_window">
+        <field name="name">All Tickets</field>
+        <field name="res_model">helpdesk.ticket</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="context">{'search_default_is_open': True}</field>
+        <field name="help" type="html">
+            <p>
+                No tickets to display.
+            </p>
+        </field>
+    </record>
+        <menuitem id="helpdesk.menu_helpdesk_root" name="Helpdesk"
+            sequence="25"
+            web_icon="helpdesk,static/description/icon.png"
+            groups="helpdesk.group_helpdesk_user,group_sale_user_custom"/>
+        <menuitem id="website.menu_website_configuration" sequence="215" name="Website Admin"
+            groups="base.group_system" web_icon="website,static/description/icon_admin.png"/>
+        <menuitem id="helpdesk.helpdesk_ticket_menu_main" action="dgn_helpdesk_ticket_action_main_tree"
+        sequence="10" parent="helpdesk.menu_helpdesk_root"/>
+	</data>
+
+    <data noupdate="1">
+        <record id="template_ticket" model="helpdesk.ticket">
+            <field name="name">Template Ticket</field>
+        </record>
+    </data>
+
+    <record model="ir.cron" id="dgn_change_kanban_color">
+        <field name="name">Diginet Change Kanban Color</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+        <field name="model" eval="'helpdesk.ticket'"/>
+        <field name="function" eval="'_change_ticket_color'"/>
+        <field name="args" eval="'()'" />
+    </record>
+</odoo>

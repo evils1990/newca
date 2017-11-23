@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="wiew_form_account_master" model="ir.ui.view">
+            <field name="name">Service Account</field>
+            <field name="model">account.master</field>
+            <field name="arch" type="xml">
+                <form string="Service Account Master">
+                    <header>
+                        <button name="do_active" type="object" class="btn btn-primary btn-sm" string="Active" states="deactive" />
+                        <button name="do_deactive" type="object" class="btn" string="Deactive" states="active" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <div>
+                                <div style="float:left; padding-right:10px">
+                                    <field name="image_medium" widget='image' class="oe_avatar" />
+                                </div>
+                                <div>
+                                    <div>
+                                        <h1><field name="name" placeholder="Account Name"/></h1>
+                                    </div>
+                                    <div>
+                                        Password: <field name="password" />
+                                    </div>
+                                    <div>
+                                        Product: <field name="product_id" />
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <group string="Customer Information">
+                                <field name="customer_id" />
+                                <field name="cus_address" />
+                                <field name="cus_phone" />
+                                <field name="cus_email" />
+                            </group>
+                            <group string="Technical Information">
+                                <field name="group" />
+                                <field name="ip_add" />
+                                <field name="pool_1" />
+                                <field name="policy" />
+                                <field name="onu_info" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_account_master" model="ir.ui.view">
+            <field name="name">Service Account</field>
+            <field name="model">account.master</field>
+            <field name="arch" type="xml">
+                <tree colors="gray:state==True">
+                    <field name="customer_id" />
+                    <field name="name" />
+                    <field name="product_id" />
+                    <field name="cus_address" />
+                    <field name="cus_phone" />
+                    <field name="cus_email" />
+                    <field name="ip_add" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_kanban_account_master" model="ir.ui.view">
+            <field name="name">Service Account</field>
+            <field name="model">account.master</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="customer_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_vignette">
+                                    <div class="oe_attachment">
+                                        <div style="float:left; padding-right:10px">
+                                            <a type="open" href="#" class="oe_kanban_action">
+                                                <img t-att-src="kanban_image('res.partner', 'image_small', record.customer_id.raw_value)" class="img-responsive" style="width:50px;"/>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <div style="float:left; width:50%">
+                                                <div>
+                                                    User: <b><field name="name"/></b>
+                                                </div>
+                                                <div>
+                                                    Customer: <b><field name="customer_id" /></b>
+                                                </div>
+                                                <div>
+                                                    Product: <b><field name="product_id" /></b>
+                                                </div>
+                                            </div>
+                                            <div style="float:right">
+                                                <button name="do_active" type="object" class="btn btn-primary btn-sm" states="deactive">Active</button>
+                                                <button name="do_deactive" type="object" class="btn" states="active">Deactive</button>
+                                                <div>
+                                                    Status: <b><field name="state" /></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_filter_account_master" model="ir.ui.view">
+            <field name="name">Service Account</field>
+            <field name="model">account.master</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Active" domain="[('state', '=', 'active')]" />
+                    <filter string="Deactive" domain="[('state', '=', 'deactive')]" />
+                    <field name="customer_id" />
+                    <field name="name" />
+                    <field name="cus_address" />
+                    <field name="cus_phone" />
+                    <field name="cus_email" />
+                    <field name="ip_add" />
+                    <field name="state" />
+                </search>
+            </field>
+        </record>
+        <act_window id="action_account_master"
+                     name="Service Account"
+                     res_model="account.master"
+                     view_mode="tree,kanban,form" />
+        <menuitem id="menu_account_master"
+                  name="Service Account"
+                  parent="sales_team.menu_sales"
+                  sequence="14"
+                  action="action_account_master" />
+    </data>
+
+    <data noupdate="1">
+        <record id="sequence_user_account" model="ir.sequence">
+            <field name="name">Username</field>
+            <field name="code">account.master.user</field>
+            <field name="prefix">hndf-%(y)s%(month)s%(day)s-%(y)s-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
