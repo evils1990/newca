@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="dgn_agency_sale_form_view" model="ir.ui.view">
+        <field name="name">crm.team.agency.form</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sale.crm_team_salesteams_view_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="crm_type" required="True"/>
+                <field name="parent_id" attrs="{'invisible':[('crm_type','!=','agency')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- make sale team required in sale order -->
+    <record id="view_order_form_inherited" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
