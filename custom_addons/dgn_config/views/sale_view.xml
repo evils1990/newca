@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="dgn_button_start_subscription_view" model="ir.ui.view">
+        	<field name="name">sale.order.form.view.button</field>
+        	<field name="model">sale.order</field>
+        	<field name="inherit_id" ref="sale.view_order_form"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//sheet" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', 'not in', 'draft')]}</attribute>
+				</xpath>
+				<field name="order_line" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', 'not in', 'draft')]}</attribute>
+				</field>
+
+				<xpath expr="//header" position="replace">
+					<header>
+						<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+							type="action" class="btn-primary"
+							attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}" groups="dgn_config.group_sale_accountant"/>
+						<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+							type="action" context="{'default_advance_payment_method': 'percentage'}"
+							attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}" groups="dgn_config.group_sale_accountant"/>
+						<button name="dgn_set_open_sale" string="Start Subscription" type="object"
+							attrs="{'invisible': ['|','|', ('state','not in',['done']),
+							('subscription_management','!=','create'),('subscription_state','=','open')]}" class="oe_highlight"
+							groups="dgn_config.group_sale_infrastructure"/>
+						<button name="action_confirm" states="sent" string="Confirm Sale"
+							class="btn-primary o_sale_confirm" type="object"
+							attrs="{'invisible': [('state', 'not in', 'submit')]}" groups="dgn_config.group_sale_accountant"/>
+						<button name="sale_submit" string="Submit"
+							type="object" class="btn-primary"
+							attrs="{'invisible': [('state', 'not in', 'draft')]}" groups="dgn_config.group_sale_noc,dgn_config.group_sale_accountant"/>
+						<button name="action_cancel" states="draft,submit" type="object" string="Cancel"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,submit,sale"/>
+					</header>
+				</xpath>
+
+				<field name="user_id" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="client_order_ref" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="team_id" position="replace">
+				</field>
+				<field name="fiscal_position_id" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="invoice_status" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="origin" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="incoterm" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="require_payment" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="payment_term_id" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+				</field>
+				<field name="pricelist_id" position="replace">
+					<field name="team_id" options="{'no_create': True}" required="1"
+						   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+					<field name="subscription_state" invisible="1"/>
+					<field name="pricelist_id" groups="product.group_sale_pricelist"
+						   domain="[('sale_teams','in',team_id)]" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+				</field>
+				<field name="contract_template" position="after">
+					<field name="subscription_management" readonly="1"/>
+					<field name="end_date" attrs="{'invisible': [('subscription_management', '!=', ('close'))],'required': [('subscription_management', '=', ('close'))],'readonly': [('state', '!=', 'draft')]}"/>
+					<field name="cancel_date" attrs="{'invisible': [('subscription_management', '!=', ('cancel'))],'required': [('subscription_management', '=', ('cancel'))],'readonly': [('state', '!=', 'draft')]}"/>
+				</field>
+				<field name="payment_term_id" position="after">
+					<field name="doc_type" readonly="1" attrs="{'invisible': [('subscription_management', 'in', 'renew')]}"/>
+					<field name="doc_type2" attrs="{'invisible': [('subscription_management', 'not in', 'renew')]}"/>
+				</field>
+				<xpath expr="//form/sheet/notebook/page[1]" position="after">
+					<page string="Free Order Days"
+						  attrs="{'invisible': [('subscription_management', 'in', ('renew','upsell','close','cancel'))]}">
+						<group>
+							<field name="free_day_description" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="free_day_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						</group>
+					</page>
+				</xpath>
+
+        	</field>
+    	</record>
+		<record id="dgn_product_pricelist_view" model="ir.ui.view">
+			<field name="name">dgn.product.pricelist.view</field>
+			<field name="model">product.pricelist</field>
+			<field name="inherit_id" ref="product.product_pricelist_view" />
+			<field name="arch" type="xml">
+				<field name="currency_id" position="after">
+					<field name='sale_teams' widget="many2many_tags"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="dgn_crm_team_view_form" model="ir.ui.view">
+			<field name="name">dgn.crm.team.view.form</field>
+			<field name="model">crm.team</field>
+			<field name="inherit_id" ref="sales_team.crm_team_view_form" />
+			<field name="arch" type="xml">
+				<field name="user_id" position="after">
+					<field name='price_lists' widget="many2many_tags"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="view_sale_order_status_form" model="ir.ui.view">
+			<field name="name">sale.order.status.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="website_quote.sale_order_form_quote" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/header/button[@name='open_quotation']" position="replace"/>
+			</field>
+		</record>
+
+		<record id="dgn_sale_order_view_tree_subscription" model="ir.ui.view">
+			<field name="name">dgn.sale_order_view_tree_subscription</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="website_contract.sale_order_view_tree_subscription" />
+			<field name="arch" type="xml">
+				<field name="state" position="replace">
+					<field name="state"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+			<field name="domain">[('state', 'in', ('draft', 'sent', 'submit', 'cancel'))]</field>
+            <field name="context">{'hide_sale': True}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create a Quotation, the first step of a new sale.
+              </p><p>
+                Your next actions should flow efficiently: confirm the Quotation
+                to a Sale Order, then create the Invoice and collect the Payment.
+              </p><p>
+                Note that once a Quotation becomes a Sale Order, it will be moved
+                from the Quotations list to the Sales Order list.
+              </p>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="dgn_res_partner_opt_out_search">
+            <field name="name">dgn.res.partner.opt_out.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+				<filter name="supplier" position="after">
+					<separator />
+					<field name="phone" />
+					<field name="email" />
+					<field name="personal_id_number" />
+				</filter>
+            </field>
+        </record>
+		<menuitem action="sale.action_orders"
+            id="sale.menu_sale_order" parent="sales_team.menu_sales"
+            sequence="12" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager,dgn_config.group_sale_user_custom"/>
+		<menuitem name="Sales"
+			id="sales_team.menu_base_partner"
+			groups="sales_team.group_sale_salesman,sales_team.group_sale_manager,group_sale_user_custom" sequence="6"/>
+	</data>
+</odoo>

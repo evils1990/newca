@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="helpdesk_near_deadline_cron" model="ir.cron">
+        <field name="name">Warning Deadline</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'helpdesk.ticket'"/>
+        <field name="function" eval="'send_email_warning_deadline'"/>
+        <field name="args" eval="'()'" />
+    </record>
+
+    <record id="usage_daily_cron" model="ir.cron">
+        <field name="name">Daily Usage PUSH</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'sale.subscription'"/>
+        <field name="function" eval="'push_timesheet'"/>
+        <field name="args" eval="'()'" />
+    </record>
+</odoo>

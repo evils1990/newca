@@ -1,0 +1,24 @@
+body {
+    font-family: "ProximaNova", sans-serif;
+}
+div.action_pane.create {
+    display: none !important;
+}
+
+.tbody_open_balance {
+    display: none;
+}
+
+.js_automatic_reconciliation {
+    display: none;
+}
+
+div.oe_kanban_color_11 {
+    background-color: #F1FF89 !important;
+    color: #161612 !important;
+}
+
+div.oe_kanban_color_12 {
+    background-color: #FF6060 !important;
+    color: #161612 !important;
+}
