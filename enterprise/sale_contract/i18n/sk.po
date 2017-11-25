@@ -1,0 +1,1733 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * sale_contract
+#
+# Translators:
+# Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-29 12:08+0000\n"
+"PO-Revision-Date: 2016-01-07 20:07+0000\n"
+"Last-Translator: Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>\n"
+"Language-Team: Slovak (http://www.transifex.com/odoo/odoo-9/language/sk/)\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#. module: sale_contract
+#: model:mail.template,body_html:sale_contract.account_analytic_cron_email_template
+#, fuzzy
+msgid ""
+"\n"
+"<p>Dear ${object.name},</p>\n"
+"\n"
+"% macro account_table(values):\n"
+"<table cellspacing=\"1\" border=\"1\" cellpadding=\"4\" style=\"width:600px;"
+"max-width:600px\">\n"
+"    <tr>\n"
+"        <th>Customer</th>\n"
+"        <th>Contract</th>\n"
+"        <th>Dates</th>\n"
+"        <th>Prepaid Units</th>\n"
+"        <th>Contact</th>\n"
+"    </tr>\n"
+"    % for partner, accounts in values:\n"
+"        % for account in accounts:\n"
+"        <tr>\n"
+"            <td style=\"width:85px;\">${partner.name}</td>\n"
+"            <td style=\"width:85px;\"><a href=\"${ctx[\"base_url\"]}/"
+"web#action=${ctx[\"action_id\"]}&id=${account.id}&view_type=form\">${account."
+"name}</a></td>\n"
+"            <td style=\"width:150px;\">${account.date_start} to ${account."
+"date and account.date or '???'}</td>\n"
+"            <td style=\"width:80px;\">\n"
+"            % if account.quantity_max != 0.0:\n"
+"                ${account.remaining_hours}/${account.quantity_max} units\n"
+"            % endif\n"
+"            </td>\n"
+"            <td style=\"width:300px;\">${account.partner_id.phone or ''}, "
+"${account.partner_id.email or ''}</td>\n"
+"        </tr>\n"
+"        % endfor\n"
+"    % endfor\n"
+"</table>\n"
+"% endmacro\n"
+"\n"
+"% if \"new\" in ctx[\"data\"]:\n"
+"    <h2>The following contracts just expired: </h2>\n"
+"    ${account_table(ctx[\"data\"][\"new\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"% if \"old\" in ctx[\"data\"]:\n"
+"    <h2>The following expired contracts are still not processed: </h2>\n"
+"    ${account_table(ctx[\"data\"][\"old\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"% if \"future\" in ctx[\"data\"]:\n"
+"    <h2>The following contracts will expire in less than one month: </h2>\n"
+"    ${account_table(ctx[\"data\"][\"future\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"<p>You can check all contracts to be renewed using the menu <strong>Sales / "
+"Invoicing / Contracts to Renew</strong>.</p>\n"
+"<p>Best regards,</p>\n"
+"<p>--<br />\n"
+"Odoo</p>"
+msgstr ""
+"\n"
+"Dobrý deň ${object.name},\n"
+"\n"
+"% macro account_table(values):\n"
+"<table cellspacing=\"1\" border=\"1\" cellpadding=\"4\">\n"
+"<tr>\n"
+"<th>Zákazník</th>\n"
+"<th>Zmluva</th>\n"
+"<th>Dátumy</th>\n"
+"<th>Predplatené jednotky</th>\n"
+"<th>Kontakt</th>\n"
+"</tr>\n"
+"% pre partnera, účty v hodnotách:\n"
+"% na účet v účtoch:\n"
+"<tr>\n"
+"<td>${partner.name}</td>\n"
+"<td><a href=\"${ctx[\"base_url\"]}/#action=${ctx[\"action_id\"]}&id="
+"${account.id}&view_type=form\">${account.name}</a></td>\n"
+"<td>${account.date_start} to ${account.date and account.date or '???'}</td>\n"
+"<td>\n"
+"% if account.quantity_max != 0.0:\n"
+"${account.remaining_hours}/${account.quantity_max} units\n"
+"% endif\n"
+"</td>\n"
+"<td>${account.partner_id.phone or ''}, ${account.partner_id.email or ''}</"
+"td>\n"
+"</tr>\n"
+"% endfor\n"
+"% endfor\n"
+"</table>\n"
+"% endmacro \n"
+"\n"
+"% if \"new\" in ctx[\"data\"]:\n"
+"<h2>Nasledujúce zmluvy práve vypršali: </h2>\n"
+"${account_table(ctx[\"data\"][\"new\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"% if \"old\" in ctx[\"data\"]:\n"
+"<h2>Nasledujúce vypršané zmluvy ešte nie sú spracované: </h2>\n"
+"${account_table(ctx[\"data\"][\"old\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"% if \"future\" in ctx[\"data\"]:\n"
+"<h2>Nasledujúce zmluvy vypršia za menej ako mesiac: </h2>\n"
+"${account_table(ctx[\"data\"][\"future\"].iteritems())}\n"
+"% endif\n"
+"\n"
+"<p>\n"
+"Môžete skontrolovať všetky zmluvy, ktoré majú byť obnovené pomocou menu:\n"
+"</p>\n"
+"<ul>\n"
+"<li>Predaj / Fakturácia / Zmluvy na obnovenie</li>\n"
+"</ul>\n"
+"<p>\n"
+"Vďaka,\n"
+"</p>\n"
+"\n"
+"<pre>\n"
+"-- \n"
+"Odoo automatický email\n"
+"</pre>"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Account Manager"
+msgstr "Manažér účtu"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Active"
+msgstr "Aktívny"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Active templates"
+msgstr "Aktívne šablóny"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_actual_quantity
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_actual_quantity
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_actual_quantity
+msgid "Actual Quantity"
+msgstr "Skutočné množstvo"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_user_selectable
+msgid "Allow Online Order"
+msgstr "Povoliť online objednávku"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_account_analytic_account
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_analytic_account_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_analytic_account_id
+msgid "Analytic Account"
+msgstr "Analytický účet"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_ids
+msgid "Analytic Lines"
+msgstr "Analytické riadky"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_balance
+msgid "Balance"
+msgstr "Bilancia"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Cancel Subscription"
+msgstr "Zrušiť odber"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,state:0
+#: selection:sale.subscription.report,state:0
+msgid "Cancelled"
+msgstr "Zrušené"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Cancelled contracts"
+msgstr "Zrušiť zmluvy"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_use_tasks
+msgid "Check this box to manage internal activities through this project"
+msgstr ""
+"Zaškrtnite, ak chcete riadiť vnútorné činnosti prostredníctvom tohto projektu"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action_template
+msgid "Click here to create a template of subscription."
+msgstr "Kliknite sem pre vytvorenie šablóny odberu."
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action
+msgid "Click to create a new contract."
+msgstr "Kliknite pre vytvorenie novej zmluvy."
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action_pending
+msgid "Click to define a new contract."
+msgstr "Kliknite pre definovanie novej zmluvy."
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.product_action_subscription
+msgid "Click to define a new product."
+msgstr "Kliknite pre definovanie nového produktu."
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_close_reason_id
+msgid "Close Reason"
+msgstr "Dôvod zavretia"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.sale_subscription_close_reason_action
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_lost_reason_action
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_close_reason_view_tree
+msgid "Close Reasons"
+msgstr "Dôvody zavretia"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Close Subscription"
+msgstr "Zavrieť odber"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,state:0
+#: selection:sale.subscription.report,state:0
+msgid "Closed"
+msgstr "Uzavreté"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Closed contracts"
+msgstr "Zavreté zmluvy"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_commercial_partner_id
+#, fuzzy
+msgid "Commercial Partner"
+msgstr "Komerčný partner"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_company_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_company_id
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Company"
+msgstr "Spoločnost"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_company_uom_id
+msgid "Company UOM"
+msgstr "Merná jednotka spoločnosti"
+
+#. module: sale_contract
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_config
+msgid "Configuration"
+msgstr "Nastavenie"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,type:0
+msgid "Contract"
+msgstr "Contract "
+
+#. module: sale_contract
+#: model:mail.template,subject:sale_contract.account_analytic_cron_email_template
+msgid "Contract expiration reminder ${user.company_id.name}"
+msgstr "Pripomienka vypršania zmluvy ${user.company_id.name}"
+
+#. module: sale_contract
+#: model:ir.module.category,name:sale_contract.module_category_contract_management
+msgid "Contracts"
+msgstr "Zmluvy"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Contracts in progress"
+msgstr "Prebiehajúce zmluvy"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Contracts not assigned"
+msgstr "Nepridelené zmluvy"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Contracts that are not assigned to an account manager."
+msgstr "Zmluvy ktoré nie sú pridelené manažérovi účtu."
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_country_id
+msgid "Country"
+msgstr "Krajina"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid ""
+"Create a sale order that will overwrite this contract when confirmed "
+"(renewal quotation)"
+msgstr ""
+"Vytvorte objednávku predaja, ktorá prepíše túto zmluvu keď sa potvrdí "
+"(obnova cenovej ponuky)"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_create_uid
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_create_uid
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_create_uid
+msgid "Created by"
+msgstr "Vytvoril"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_create_date
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_create_date
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_create_date
+msgid "Created on"
+msgstr "Vytvorené"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_credit
+msgid "Credit"
+msgstr "Kredit"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_currency_id
+msgid "Currency"
+msgstr "Mena"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_partner_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_partner_id
+msgid "Customer"
+msgstr "Zákazník"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_date_end
+msgid "Date End"
+msgstr "Dátum ukončenia"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_date_start
+msgid "Date Start"
+msgstr "Dátum začatia"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_recurring_next_date
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Date of Next Invoice"
+msgstr "Dátum ďalšej faktúry"
+
+#. module: sale_contract
+#: selection:sale.subscription,recurring_rule_type:0
+msgid "Day(s)"
+msgstr "Dní"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_debit
+msgid "Debit"
+msgstr "Debet"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_plan_description
+msgid "Describe this contract in a few lines"
+msgstr "Popíšte túto zmluvu v niekoľkých riadkoch"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_description
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_name
+msgid "Description"
+msgstr "Popis"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_discount
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_discount
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_discount
+msgid "Discount (%)"
+msgstr "Zľava (%)"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_display_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_display_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_display_name
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_display_name
+msgid "Display Name"
+msgstr "Zobraziť meno"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_date
+msgid "End Date"
+msgstr "Dátum ukončenia"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "End Month"
+msgstr "Mesiac ukončenia"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "End date is in the next month"
+msgstr "Dátum ukončenia je budúci mesiac"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "End date passed"
+msgstr "Dátum ukončenia prešiel"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Expired"
+msgstr "Vypršané"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Expiring soon"
+msgstr "Čoskoro vyprší"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Group By"
+msgstr "Zoskupiť podľa"
+
+#. module: sale_contract
+#: model:ir.module.category,description:sale_contract.module_category_contract_management
+msgid "Helps you handle subscriptions and recurring invoicing."
+msgstr "Pomáha vám iadiť odbery a opakujúcu sa fakturáciu."
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_id_7486
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_product_template_recurring_invoice
+msgid ""
+"If set, confirming a sale order with this product will create a subscription"
+msgstr ""
+"Ak nastavené, potvrdenie objednávky predaja týmto produktom vytvorí odber"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_order_update_contract
+msgid ""
+"If set, the associated contract will be overwritten by this sale order "
+"(every recurring line of the contract not in this sale order will be "
+"deleted)."
+msgstr ""
+"Ak nastavené, bude spojená zmluva prepísaná touto objednávkou predaja (každý "
+"opakujúci sa riadok zmluvy ktorý nie je v tomto predaji bude vymazaný)."
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,state:0
+#: selection:sale.subscription.report,state:0
+msgid "In Progress"
+msgstr "spracováva sa"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Inactive"
+msgstr "Neaktívne"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "Inactive templates"
+msgstr "Neaktívne šablóny"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_recurring_invoice_line_ids
+msgid "Invoice Lines"
+msgstr "Položky faktúry"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_recurring_rule_type
+msgid "Invoice automatically repeat at specified interval"
+msgstr "Faktúru automaticky opakovať v špecifikovanom intervale"
+
+#. module: sale_contract
+#: code:addons/sale_contract/models/sale_subscription.py:368
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+#, python-format
+msgid "Invoices"
+msgstr "Faktúry"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription___last_update
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason___last_update
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line___last_update
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report___last_update
+msgid "Last Modified on"
+msgstr "Posledná modifikácia"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_write_uid
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_write_uid
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_write_uid
+msgid "Last Updated by"
+msgstr "Naposledy upravoval"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_write_date
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_write_date
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_write_date
+msgid "Last Updated on"
+msgstr "Naposledy upravované"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_user_selectable
+msgid ""
+"Leave this unchecked if you don't want this contract template to be "
+"available to the customer in the frontend (for a free trial, for example)"
+msgstr ""
+"Nechajte nezaškrtnuté, ak nechcete, aby táto šablóna zmluvy bola dispozícii "
+"zákazníkovi na rozhraní (pre bezplatné vyskúšanie, napríklad)"
+
+#. module: sale_contract
+#: model:res.groups,name:sale_contract.group_sale_contract_manager
+msgid "Manage Contracts"
+msgstr "Spravovať zmluvy"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_option_quantity
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_quantity
+msgid "Max between actual and sold quantities; this quantity will be invoiced"
+msgstr ""
+"Max medzi skutočnými a predanými množstvami; toto množstvo bude fakturované"
+
+#. module: sale_contract
+#: selection:sale.subscription,recurring_rule_type:0
+msgid "Month(s)"
+msgstr "Mesiac(e)"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_name
+msgid "Name"
+msgstr "Meno"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,state:0
+#: selection:sale.subscription.report,state:0
+msgid "New"
+msgstr "Nové"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "New Contracts"
+msgstr "Nové zmluvy"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action_pending
+msgid ""
+"Odoo automatically sets contracts to be renewed in a pending\n"
+"            state. After the negociation, the salesman should close or "
+"renew\n"
+"            pending contracts."
+msgstr ""
+"Odoo automaticky nastaví zmluvy, ktoré majú byť obnovené, na čakajúci\n"
+"stav. Po rokovaní, predajca by mal zatvoriť alebo obnoviť\n"
+"čakajúce zmluvy."
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_res_partner
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Partner"
+msgstr "Partner"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Pending contracts"
+msgstr "Čakajúce zmluvy"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_plan_description
+msgid "Plan Description"
+msgstr "Popis plánu"
+
+#. module: sale_contract
+#: code:addons/sale_contract/models/sale_subscription.py:182
+#, python-format
+msgid "Please define a sale journal for the company \"%s\"."
+msgstr "Prosím definujte predajnú účtovnú knihu pre spoločnosť \"%s\"."
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_pricelist_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_pricelist_id
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Pricelist"
+msgstr "Cenník"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_product_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_product_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_product_id
+msgid "Product"
+msgstr "Produkt"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_categ_id
+msgid "Product Category"
+msgstr "Kategória produktu"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_product_template
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_product_tmpl_id
+msgid "Product Template"
+msgstr "šablona produktu"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_project_ids
+msgid "Projects"
+msgstr ""
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_quantity
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_quantity
+msgid "Quantity"
+msgstr "Množstvo"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_actual_quantity
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_option_actual_quantity
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_wizard_option_actual_quantity
+msgid "Quantity actually used by the customer"
+msgstr "Množstvo skutočne použité zákazníkom"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_option_sold_quantity
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_line_sold_quantity
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_wizard_option_sold_quantity
+msgid "Quantity sold to the customer"
+msgstr "Množstvo predané zákazníkovi"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_recurring_rule_type
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Recurrency"
+msgstr "Opakovanie"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_recurring_total
+msgid "Recurring Price"
+msgstr "Opakovaná cena"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_recurring_price
+msgid "Recurring price(per period)"
+msgstr "Opakovaná cena (za obdobie)"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_code
+msgid "Reference"
+msgstr "Odkaz"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_recurring_interval
+msgid "Repeat Every"
+msgstr "Opakovať každé"
+
+#. module: sale_contract
+#: model:ir.model.fields,help:sale_contract.field_sale_subscription_recurring_interval
+msgid "Repeat every (Days/Week/Month/Year)"
+msgstr "Opakovať každý (deň/týždeň/mesiac/rok)"
+
+#. module: sale_contract
+#: model:ir.ui.menu,name:sale_contract.menu_report_product_all
+msgid "Reports"
+msgstr "Výkazy"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_user_id
+msgid "Responsible"
+msgstr "Zodpovedná osoba"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_sale_subscription
+msgid "Sale Subscription"
+msgstr "Odber predaja"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_list
+msgid "Sale Subscriptions"
+msgstr "Odbery predaja"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_sale_order
+msgid "Sales Order"
+msgstr "Objednávka predaja"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_manager_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_manager_id
+msgid "Sales Rep"
+msgstr "Obchodný zástupca"
+
+#. module: sale_contract
+#: model:res.groups,name:sale_contract.group_sale_contract_view
+msgid "See Contracts"
+msgstr "Pozrieť zmluvy"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_close_reason_sequence
+msgid "Sequence"
+msgstr "Postupnosť"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Set to Active"
+msgstr "Nastaviť na aktívne"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Set to Inactive"
+msgstr "Nastaviť na neaktívne"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Settings"
+msgstr "Konfigurácia"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_sold_quantity
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_sold_quantity
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_sold_quantity
+msgid "Sold Quantity"
+msgstr "Predané množstvo"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_date_start
+msgid "Start Date"
+msgstr "Počiatočný dátum"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Start Month"
+msgstr "Mesiac začatia"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+#, fuzzy
+msgid "Start Subscription"
+msgstr "Odber predaja"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_account_type
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_state
+msgid "State"
+msgstr "Stav"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_state
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Status"
+msgstr "Stav"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_price_subtotal
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_price_subtotal
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_price_subtotal
+msgid "Sub Total"
+msgstr "Medzisúčet"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_order_subscription_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_analytic_account_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_analytic_account_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_analytic_account_id
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Subscription"
+msgstr "Predplatné"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.action_subscription_report_all
+#: model:ir.ui.view,arch_db:sale_contract.view_subcription_report_graph
+#: model:ir.ui.view,arch_db:sale_contract.view_subcription_report_pivot
+msgid "Subscription Analysis"
+msgstr "Analýza odberu"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "Subscription Lines"
+msgstr "Riadky odberu"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_product_template_recurring_invoice
+msgid "Subscription Product"
+msgstr "Produkt odberu"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.product_action_subscription
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_product
+msgid "Subscription Products"
+msgstr "Produkty odberu"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_sale_subscription_report
+msgid "Subscription Statistics"
+msgstr "Štatistiky odberu"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.sale_subscription_action_template
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_template_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_template_id
+#: model:ir.ui.menu,name:sale_contract.menu_template_of_subscription
+msgid "Subscription Template"
+msgstr "Šablóna odberu"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_list_template
+msgid "Subscription Templates"
+msgstr "Šablóny odberu"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.product_template_search_view_inherit_sale_contract
+msgid "Subscription products"
+msgstr "Produkty odberu"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.sale_subscription_action
+#: model:ir.actions.act_window,name:sale_contract.sale_subscription_action_res_partner
+#: model:ir.model.fields,field_description:sale_contract.field_account_analytic_account_subscription_ids
+#: model:ir.model.fields,field_description:sale_contract.field_res_partner_subscription_count
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_subscription_ids
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_action
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_root
+#: model:ir.ui.view,arch_db:sale_contract.account_analytic_account_view_inherit_sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.res_partner_view_inherit_sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+msgid "Subscriptions"
+msgstr "Predplatné"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,name:sale_contract.sale_subscription_action_pending
+#: model:ir.ui.menu,name:sale_contract.menu_sale_subscription_pending
+#, fuzzy
+msgid "Subscriptions to Renew"
+msgstr "Odbery na obnovenie"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_tag_ids
+msgid "Tags"
+msgstr "Popisky"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_use_tasks
+msgid "Tasks"
+msgstr "Úlohy"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+#: selection:sale.subscription,type:0
+msgid "Template"
+msgstr "Šablóna"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action_template
+#, fuzzy
+msgid ""
+"Templates are used to prefigure subscription that\n"
+"                can be selected by the salespeople to quickly configure the\n"
+"                terms and conditions of the subscription."
+msgstr ""
+"Šablóny sa používajú na predznamenanie odberu ktoré\n"
+"môžu byť vybrané pomocou predajcov na rýchlu konfiguráciu\n"
+"podmienok odberu."
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.product_action_subscription
+msgid ""
+"The product form contains information to simplify the sale\n"
+"            process: price, notes in the quotation, accounting data,\n"
+"            procurement methods, etc."
+msgstr ""
+"Formulár produktu obsahuje informácie pre zjednodušenie predajného\n"
+"procesu: ceny, poznámky v cenovej ponuke, účtovné údaje,\n"
+"metódy obstáravania, atď."
+
+#. module: sale_contract
+#: model:res.groups,comment:sale_contract.group_sale_contract_view
+msgid "The user will have read access to contracts."
+msgstr "Používateľ bude mať čítací prístup k zmluvám."
+
+#. module: sale_contract
+#: model:res.groups,comment:sale_contract.group_sale_contract_manager
+msgid "The user will have write access to contracts."
+msgstr "Používateľ bude mať zapisovací prístup k zmluvám."
+
+#. module: sale_contract
+#: code:addons/sale_contract/models/sale_order.py:79
+#: code:addons/sale_contract/models/sale_subscription.py:210
+#, python-format
+msgid "This invoice covers the following period: %s - %s"
+msgstr "Táto faktúra pokrýva následovné obdobie: %s - %s"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_order_view_form_subscription
+msgid "This order is linked to a subscription."
+msgstr "Táto objdnávka je prepojná k odberu."
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search
+#: selection:sale.subscription,state:0
+#: selection:sale.subscription.report,state:0
+msgid "To Renew"
+msgstr "Na obnovenie"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_type
+msgid "Type"
+msgstr "Typ"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_price_unit
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_price_unit
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_price_unit
+msgid "Unit Price"
+msgstr "Jednotková cena"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_option_uom_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_line_uom_id
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_report_product_uom
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_wizard_option_uom_id
+msgid "Unit of Measure"
+msgstr "Merná jednotka"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_sale_order_update_contract
+msgid "Update Contract"
+msgstr "Aktualizovať zmluvu"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action
+msgid ""
+"Use contracts to follow tasks, issues, timesheets or invoicing based on\n"
+"                work done, expenses and/or sales orders. Odoo will "
+"automatically manage\n"
+"                the alerts for the renewal of the contracts to the right "
+"salesperson."
+msgstr ""
+"Použiťe zmluvy na sledovanie úloh, problémov, časových ozvrhov a fakturácie "
+"na základe\n"
+"vykonanej práce, výdavkov a / alebo objednávok predaja. Odoo bude "
+"automaticky spravovať\n"
+"upozorenia pre predĺženie zmlúv pre správneho predajcu."
+
+#. module: sale_contract
+#: selection:sale.subscription,recurring_rule_type:0
+msgid "Week(s)"
+msgstr "Týždeň(ne)"
+
+#. module: sale_contract
+#: selection:sale.subscription,recurring_rule_type:0
+msgid "Year(s)"
+msgstr "Rok(y)"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.product_action_subscription
+msgid ""
+"You must define a product for everything you sell, whether it's\n"
+"            a physical product, a consumable or a service you offer to\n"
+"            customers."
+msgstr ""
+"Musíte definovať produkt pre všetko čo predávate, či je to\n"
+"fyzický produkt, niečo spotrebné alebo služba čo ponúkate\n"
+"zákazníkom."
+
+#. module: sale_contract
+#: code:addons/sale_contract/models/sale_subscription.py:175
+#, python-format
+msgid "You must first select a Customer for Subscription %s!"
+msgstr "Najskôr musíte zvoliť zákazníka pre odber %s!"
+
+#. module: sale_contract
+#: model:ir.actions.act_window,help:sale_contract.sale_subscription_action_pending
+msgid ""
+"You will find here the contracts to be renewed because the\n"
+"            end date is passed or the working effort is higher than the\n"
+"            maximum authorized one."
+msgstr ""
+"Nájdete tu zmluvy, ktoré majú byť obnovené, pretože\n"
+"dátum ukončenia vypršal alebo pracovné úsilie je väčšie ako\n"
+"maximálne povolené."
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_sale_subscription_close_reason
+msgid "sale.subscription.close.reason"
+msgstr "sale.subscription.close.reason"
+
+#. module: sale_contract
+#: model:ir.model,name:sale_contract.model_sale_subscription_line
+msgid "sale.subscription.line"
+msgstr "sale.subscription.lin"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_search_template
+msgid "subscription Templates"
+msgstr "Šablóny odberu"
+
+#. module: sale_contract
+#: model:ir.model.fields,field_description:sale_contract.field_account_analytic_account_subscription_count
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_project_count
+#: model:ir.model.fields,field_description:sale_contract.field_sale_subscription_subscription_count
+msgid "unknown"
+msgstr ""
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "⇒ Generate Invoice"
+msgstr "⇒ Generovať faktúru"
+
+#. module: sale_contract
+#: model:ir.ui.view,arch_db:sale_contract.sale_subscription_view_form
+msgid "⇒ Renewal Quotation"
+msgstr "⇒ Obnovenie cenovej ponuky"
+
+#~ msgid ""
+#~ "\n"
+#~ "            \n"
+#~ "    <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, "
+#~ "sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "        <p>Hello ${object.partner_id.name},</p>\n"
+#~ "        \n"
+#~ "        <p>\n"
+#~ "            Your subscription (${ctx.get('code')}) has just been renewed\n"
+#~ "            %if ctx.get('total_amount') and ctx.get('payment_method'):\n"
+#~ "                via a payment of ${ctx['total_amount']} "
+#~ "${ctx['currency']} charged on ${ctx['payment_method']}\n"
+#~ "                .\n"
+#~ "            %endif\n"
+#~ "        </p>\n"
+#~ "\n"
+#~ "        <p>You will find your invoice attached.</p>\n"
+#~ "\n"
+#~ "        %if ctx.get('next_date'):\n"
+#~ "        <p>\n"
+#~ "          Your next invoice will be on ${ctx.get('next_date')}.\n"
+#~ "        </p>\n"
+#~ "        %endif\n"
+#~ "\n"
+#~ "        <br/>\n"
+#~ "        <p>If you have any question, do not hesitate to contact us.</p>\n"
+#~ "        <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+#~ "        <br/>\n"
+#~ "        <br/>\n"
+#~ "        <div style=\"width: 375px; margin: 0px; padding: 0px; background-"
+#~ "color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: "
+#~ "5px 5px; background-repeat: repeat no-repeat;\">\n"
+#~ "            <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; "
+#~ "color: #DDD;\">\n"
+#~ "                <strong style=\"text-transform:uppercase;\">${object."
+#~ "company_id.name}</strong></h3>\n"
+#~ "        </div>\n"
+#~ "        <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-"
+#~ "height: 16px; background-color: #F2F2F2;\">\n"
+#~ "            <span style=\"color: #222; margin-bottom: 5px; display: "
+#~ "block; \">\n"
+#~ "                ${object.company_id.partner_id.sudo()."
+#~ "with_context(show_address=True, html_format=True).name_get()[0][1] | "
+#~ "safe}\n"
+#~ "            </span>\n"
+#~ "            % if object.company_id.phone:\n"
+#~ "                <div style=\"margin-top: 0px; margin-right: 0px; margin-"
+#~ "bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; "
+#~ "padding-bottom: 0px; padding-left: 0px; \">\n"
+#~ "                    Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            % if object.company_id.website:\n"
+#~ "                <div>\n"
+#~ "                    Web :&nbsp;<a href=\"${object.company_id.website}\">"
+#~ "${object.company_id.website}</a>\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            <p></p>\n"
+#~ "        </div>\n"
+#~ "    </div>\n"
+#~ "                \n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "<div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-"
+#~ "serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "<p>Dobrý deň ${object.partner_id.name},</p>\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "Váš odber (${ctx.get('code')}) bol práve obnovený\n"
+#~ "%if ctx.get('total_amount') and ctx.get('payment_method'):\n"
+#~ "zaplatením ${ctx['total_amount']} ${ctx['currency']} účtované "
+#~ "${ctx['payment_method']}\n"
+#~ ".\n"
+#~ "%endif\n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<p>V prílohe nájdete Vašu faktúru.</p>\n"
+#~ "\n"
+#~ "%if ctx.get('next_date'):\n"
+#~ "<p>\n"
+#~ "Vaša ďalšia faktúra bude k ${ctx.get('next_date')}.\n"
+#~ "</p>\n"
+#~ "%endif\n"
+#~ "\n"
+#~ "<br/>\n"
+#~ "<p>Ak máte akúkoľvek otázku, neváhajte nás kontaktovať.</p>\n"
+#~ "<p>Ďakujeme, že ste si vybrali ${object.company_id.name or 'us'}!</p>\n"
+#~ "<br/>\n"
+#~ "<br/>\n"
+#~ "<div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+#~ "#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px "
+#~ "5px; background-repeat: repeat no-repeat;\">\n"
+#~ "<h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;"
+#~ "\">\n"
+#~ "<strong style=\"text-transform:uppercase;\">${object.company_id.name}</"
+#~ "strong></h3>\n"
+#~ "</div>\n"
+#~ "<div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+#~ "16px; background-color: #F2F2F2;\">\n"
+#~ "<span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+#~ "${object.company_id.partner_id.sudo().with_context(show_address=True, "
+#~ "html_format=True).name_get()[0][1] | safe}\n"
+#~ "</span>\n"
+#~ "% if object.company_id.phone:\n"
+#~ "<div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; "
+#~ "margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+#~ "0px; padding-left: 0px; \">\n"
+#~ "Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "% if object.company_id.website:\n"
+#~ "<div>\n"
+#~ "Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id."
+#~ "website}</a>\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "<p></p>\n"
+#~ "</div>\n"
+#~ "</div>"
+
+#~ msgid ""
+#~ "\n"
+#~ "            \n"
+#~ "    <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, "
+#~ "sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "        <p>Hello ${object.partner_id.name},</p>\n"
+#~ "        \n"
+#~ "        <p>\n"
+#~ "        % if ctx.get('payment_method') and ctx.get('total_amount'):\n"
+#~ "          Our final attempt to process a payment for your subscription "
+#~ "using your payment method\n"
+#~ "          ${ctx['payment_method']}\n"
+#~ "          for ${ctx['total_amount']} ${ctx.get('currency')} failed.\n"
+#~ "          % if ctx.get('error'):\n"
+#~ "            Your bank or credit institution gave the following details "
+#~ "about the issue: <pre>${ctx['error']}</pre>.\n"
+#~ "          %endif\n"
+#~ "        % else:\n"
+#~ "          Our final attempt to process a payment for your subscription "
+#~ "failed because we have no payment method recorded for you.\n"
+#~ "        % endif \n"
+#~ "        </p>\n"
+#~ "\n"
+#~ "        <p>\n"
+#~ "          As your payment should have been made <strong>15 days ago</"
+#~ "strong>, your subscription has been terminated.\n"
+#~ "        </p>\n"
+#~ "\n"
+#~ "        <br/>\n"
+#~ "        <p>Should you wish to resolve this issue, do not hesitate to "
+#~ "contact us.</p>\n"
+#~ "        <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+#~ "        <br/>\n"
+#~ "        <br/>\n"
+#~ "        <div style=\"width: 375px; margin: 0px; padding: 0px; background-"
+#~ "color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: "
+#~ "5px 5px; background-repeat: repeat no-repeat;\">\n"
+#~ "            <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; "
+#~ "color: #DDD;\">\n"
+#~ "                <strong style=\"text-transform:uppercase;\">${object."
+#~ "company_id.name}</strong></h3>\n"
+#~ "        </div>\n"
+#~ "        <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-"
+#~ "height: 16px; background-color: #F2F2F2;\">\n"
+#~ "            <span style=\"color: #222; margin-bottom: 5px; display: "
+#~ "block; \">\n"
+#~ "                ${object.company_id.partner_id.sudo()."
+#~ "with_context(show_address=True, html_format=True).name_get()[0][1] | "
+#~ "safe}\n"
+#~ "            </span>\n"
+#~ "            % if object.company_id.phone:\n"
+#~ "                <div style=\"margin-top: 0px; margin-right: 0px; margin-"
+#~ "bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; "
+#~ "padding-bottom: 0px; padding-left: 0px; \">\n"
+#~ "                    Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            % if object.company_id.website:\n"
+#~ "                <div>\n"
+#~ "                    Web :&nbsp;<a href=\"${object.company_id.website}\">"
+#~ "${object.company_id.website}</a>\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            <p></p>\n"
+#~ "        </div>\n"
+#~ "    </div>\n"
+#~ "                \n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "<div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-"
+#~ "serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "<p>Dobrý deň ${object.partner_id.name},</p>\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "% if ctx.get('payment_method') and ctx.get('total_amount'):\n"
+#~ "Naše posledný pokus o spracovanie platby za odber pomocou platobnej "
+#~ "metódy\n"
+#~ "${ctx['payment_method']}\n"
+#~ "for ${ctx['total_amount']} ${ctx.get('currency')} zlyhal.\n"
+#~ "% if ctx.get('error'):\n"
+#~ "Vaša banka alebo úverová inštitúcia poskytla nasledujúce podrobnosti o "
+#~ "probléme: <pre>${ctx['error']}</pre>.\n"
+#~ "%endif\n"
+#~ "% else:\n"
+#~ "Naše posledný pokus o spracovanie platby za predplatné zlyhala, pretože "
+#~ "nemáme pre Vás zaznamenaný žiadny spôsob platby.\n"
+#~ "% endif \n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "Keďže Vaša platba mala byť vykonaná <strong>15 dní dozadu</strong>, Váš "
+#~ "odber bol ukončený.\n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<br/>\n"
+#~ "<p>Ak si budete želať tento problém vyriešiť, neváhajte nás kontaktovať.</"
+#~ "p>\n"
+#~ "<p>Ďakujeme, že ste si vybrali ${object.company_id.name or 'us'}!</p>\n"
+#~ "<br/>\n"
+#~ "<br/>\n"
+#~ "<div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+#~ "#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px "
+#~ "5px; background-repeat: repeat no-repeat;\">\n"
+#~ "<h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;"
+#~ "\">\n"
+#~ "<strong style=\"text-transform:uppercase;\">${object.company_id.name}</"
+#~ "strong></h3>\n"
+#~ "</div>\n"
+#~ "<div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+#~ "16px; background-color: #F2F2F2;\">\n"
+#~ "<span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+#~ "${object.company_id.partner_id.sudo().with_context(show_address=True, "
+#~ "html_format=True).name_get()[0][1] | safe}\n"
+#~ "</span>\n"
+#~ "% if object.company_id.phone:\n"
+#~ "<div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; "
+#~ "margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+#~ "0px; padding-left: 0px; \">\n"
+#~ "Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "% if object.company_id.website:\n"
+#~ "<div>\n"
+#~ "Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id."
+#~ "website}</a>\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "<p></p>\n"
+#~ "</div>\n"
+#~ "</div>"
+
+#~ msgid ""
+#~ "\n"
+#~ "            \n"
+#~ "    <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, "
+#~ "sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "        <p>Hello ${object.partner_id.name},</p>\n"
+#~ "        \n"
+#~ "        <p>\n"
+#~ "        % if ctx.get('payment_method') and ctx.get('total_amount'):\n"
+#~ "          We were unable to process a payment for your subscription using "
+#~ "your payment method\n"
+#~ "          ${ctx['payment_method']}\n"
+#~ "          for ${ctx['total_amount']} ${ctx.get('currency')}.\n"
+#~ "          % if ctx.get('error'):\n"
+#~ "            Your bank or credit institution gave the following details "
+#~ "about the issue: <pre>${ctx['error']}</pre>.\n"
+#~ "          %endif\n"
+#~ "        % else:\n"
+#~ "          We were unable to process a payment for your subscription "
+#~ "because we have no payment method recorded for you.\n"
+#~ "        % endif \n"
+#~ "        </p>\n"
+#~ "\n"
+#~ "        <p>\n"
+#~ "          Your subscription ${ctx.get('code')} is still valid but will be "
+#~ "<b>suspended</b>\n"
+#~ "          on ${ctx.get('date_close')} unless the payment succeeds in the "
+#~ "mean time (we will retry once every day).\n"
+#~ "          Please double-check that you have sufficient funds.\n"
+#~ "        </p>\n"
+#~ "\n"
+#~ "        <br/>\n"
+#~ "        <p>If you have any question, do not hesitate to contact us.</p>\n"
+#~ "        <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+#~ "        <br/>\n"
+#~ "        <br/>\n"
+#~ "        <div style=\"width: 375px; margin: 0px; padding: 0px; background-"
+#~ "color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: "
+#~ "5px 5px; background-repeat: repeat no-repeat;\">\n"
+#~ "            <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; "
+#~ "color: #DDD;\">\n"
+#~ "                <strong style=\"text-transform:uppercase;\">${object."
+#~ "company_id.name}</strong></h3>\n"
+#~ "        </div>\n"
+#~ "        <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-"
+#~ "height: 16px; background-color: #F2F2F2;\">\n"
+#~ "            <span style=\"color: #222; margin-bottom: 5px; display: "
+#~ "block; \">\n"
+#~ "                ${object.company_id.partner_id.sudo()."
+#~ "with_context(show_address=True, html_format=True).name_get()[0][1] | "
+#~ "safe}\n"
+#~ "            </span>\n"
+#~ "            % if object.company_id.phone:\n"
+#~ "                <div style=\"margin-top: 0px; margin-right: 0px; margin-"
+#~ "bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; "
+#~ "padding-bottom: 0px; padding-left: 0px; \">\n"
+#~ "                    Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            % if object.company_id.website:\n"
+#~ "                <div>\n"
+#~ "                    Web :&nbsp;<a href=\"${object.company_id.website}\">"
+#~ "${object.company_id.website}</a>\n"
+#~ "                </div>\n"
+#~ "            % endif\n"
+#~ "            <p></p>\n"
+#~ "        </div>\n"
+#~ "    </div>\n"
+#~ "                \n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "<div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-"
+#~ "serif; font-size: 12px; color: rgb(34, 34, 34); background-color: "
+#~ "rgb(255, 255, 255); \">\n"
+#~ "\n"
+#~ "<p>Dobrý deň ${object.partner_id.name},</p>\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "% if ctx.get('payment_method') and ctx.get('total_amount'):\n"
+#~ "Neboli sme schopní spracovať platbu za odber pomocou platobnej metódy\n"
+#~ "${ctx['payment_method']}\n"
+#~ "for ${ctx['total_amount']} ${ctx.get('currency')}.\n"
+#~ "% if ctx.get('error'):\n"
+#~ "Vaša banka alebo úverová inštitúcia poskytla nasledujúce podrobnosti o "
+#~ "probléme: <pre>${ctx['error']}</pre>.\n"
+#~ "%endif\n"
+#~ "% else:\n"
+#~ "Neboli sme schopní spracovať platbu za odber, pretože nemáme pre Vás "
+#~ "zaznamennú žiadnu platobnú metódu.\n"
+#~ "% endif \n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "Váš odber ${ctx.get('code')} je stále platný, ale bude <b>pozastavený</"
+#~ "b>\n"
+#~ "na ${ctx.get('date_close')} pokiaľ platba neuspeje v medziobdobí (budeme "
+#~ "opakovať raz denne).\n"
+#~ "Prosím, skontrolujte, či máte dostatok finančných prostriedkov.\n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<br/>\n"
+#~ "<p>Ak máte akúkoľvek otázku, neváhajte nás kontaktovať.</p>\n"
+#~ "<p>Ďakujeme, že ste si vybrali ${object.company_id.name or 'us'}!</p>\n"
+#~ "<br/>\n"
+#~ "<br/>\n"
+#~ "<div style=\"width: 375px; margin: 0px; padding: 0px; background-color: "
+#~ "#8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px "
+#~ "5px; background-repeat: repeat no-repeat;\">\n"
+#~ "<h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;"
+#~ "\">\n"
+#~ "<strong style=\"text-transform:uppercase;\">${object.company_id.name}</"
+#~ "strong></h3>\n"
+#~ "</div>\n"
+#~ "<div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: "
+#~ "16px; background-color: #F2F2F2;\">\n"
+#~ "<span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+#~ "${object.company_id.partner_id.sudo().with_context(show_address=True, "
+#~ "html_format=True).name_get()[0][1] | safe}\n"
+#~ "</span>\n"
+#~ "% if object.company_id.phone:\n"
+#~ "<div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; "
+#~ "margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: "
+#~ "0px; padding-left: 0px; \">\n"
+#~ "Phone:&nbsp; ${object.company_id.phone}\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "% if object.company_id.website:\n"
+#~ "<div>\n"
+#~ "Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id."
+#~ "website}</a>\n"
+#~ "</div>\n"
+#~ "% endif\n"
+#~ "<p></p>\n"
+#~ "</div>\n"
+#~ "</div>"
+
+#~ msgid ""
+#~ "\n"
+#~ "Hello ${object.name},\n"
+#~ "\n"
+#~ "% macro account_table(values):\n"
+#~ "<table cellspacing=\"1\" border=\"1\" cellpadding=\"4\">\n"
+#~ "    <tr>\n"
+#~ "        <th>Customer</th>\n"
+#~ "        <th>Contract</th>\n"
+#~ "        <th>Dates</th>\n"
+#~ "        <th>Prepaid Units</th>\n"
+#~ "        <th>Contact</th>\n"
+#~ "    </tr>\n"
+#~ "    % for partner, accounts in values:\n"
+#~ "        % for account in accounts:\n"
+#~ "        <tr>\n"
+#~ "            <td>${partner.name}</td>\n"
+#~ "            <td><a href=\"${ctx[\"base_url\"]}/#action=${ctx[\"action_id"
+#~ "\"]}&id=${account.id}&view_type=form\">${account.name}</a></td>\n"
+#~ "            <td>${account.date_start} to ${account.date and account.date "
+#~ "or '???'}</td>\n"
+#~ "            <td>\n"
+#~ "            % if account.quantity_max != 0.0:\n"
+#~ "                ${account.remaining_hours}/${account.quantity_max} units\n"
+#~ "            % endif\n"
+#~ "            </td>\n"
+#~ "            <td>${account.partner_id.phone or ''}, ${account.partner_id."
+#~ "email or ''}</td>\n"
+#~ "        </tr>\n"
+#~ "        % endfor\n"
+#~ "    % endfor\n"
+#~ "</table>\n"
+#~ "% endmacro \n"
+#~ "\n"
+#~ "% if \"new\" in ctx[\"data\"]:\n"
+#~ "    <h2>The following contracts just expired: </h2>\n"
+#~ "    ${account_table(ctx[\"data\"][\"new\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "% if \"old\" in ctx[\"data\"]:\n"
+#~ "    <h2>The following expired contracts are still not processed: </h2>\n"
+#~ "    ${account_table(ctx[\"data\"][\"old\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "% if \"future\" in ctx[\"data\"]:\n"
+#~ "    <h2>The following contracts will expire in less than one month: </"
+#~ "h2>\n"
+#~ "    ${account_table(ctx[\"data\"][\"future\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "    You can check all contracts to be renewed using the menu:\n"
+#~ "</p>\n"
+#~ "<ul>\n"
+#~ "    <li>Sales / Invoicing / Contracts to Renew</li>\n"
+#~ "</ul>\n"
+#~ "<p>\n"
+#~ "    Thanks,\n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<pre>\n"
+#~ "-- \n"
+#~ "Odoo Automatic Email\n"
+#~ "</pre>\n"
+#~ "\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "Dobrý deň ${object.name},\n"
+#~ "\n"
+#~ "% macro account_table(values):\n"
+#~ "<table cellspacing=\"1\" border=\"1\" cellpadding=\"4\">\n"
+#~ "<tr>\n"
+#~ "<th>Zákazník</th>\n"
+#~ "<th>Zmluva</th>\n"
+#~ "<th>Dátumy</th>\n"
+#~ "<th>Predplatené jednotky</th>\n"
+#~ "<th>Kontakt</th>\n"
+#~ "</tr>\n"
+#~ "% pre partnera, účty v hodnotách:\n"
+#~ "% na účet v účtoch:\n"
+#~ "<tr>\n"
+#~ "<td>${partner.name}</td>\n"
+#~ "<td><a href=\"${ctx[\"base_url\"]}/#action=${ctx[\"action_id\"]}&id="
+#~ "${account.id}&view_type=form\">${account.name}</a></td>\n"
+#~ "<td>${account.date_start} to ${account.date and account.date or '???'}</"
+#~ "td>\n"
+#~ "<td>\n"
+#~ "% if account.quantity_max != 0.0:\n"
+#~ "${account.remaining_hours}/${account.quantity_max} units\n"
+#~ "% endif\n"
+#~ "</td>\n"
+#~ "<td>${account.partner_id.phone or ''}, ${account.partner_id.email or ''}</"
+#~ "td>\n"
+#~ "</tr>\n"
+#~ "% endfor\n"
+#~ "% endfor\n"
+#~ "</table>\n"
+#~ "% endmacro \n"
+#~ "\n"
+#~ "% if \"new\" in ctx[\"data\"]:\n"
+#~ "<h2>Nasledujúce zmluvy práve vypršali: </h2>\n"
+#~ "${account_table(ctx[\"data\"][\"new\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "% if \"old\" in ctx[\"data\"]:\n"
+#~ "<h2>Nasledujúce vypršané zmluvy ešte nie sú spracované: </h2>\n"
+#~ "${account_table(ctx[\"data\"][\"old\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "% if \"future\" in ctx[\"data\"]:\n"
+#~ "<h2>Nasledujúce zmluvy vypršia za menej ako mesiac: </h2>\n"
+#~ "${account_table(ctx[\"data\"][\"future\"].iteritems())}\n"
+#~ "% endif\n"
+#~ "\n"
+#~ "<p>\n"
+#~ "Môžete skontrolovať všetky zmluvy, ktoré majú byť obnovené pomocou menu:\n"
+#~ "</p>\n"
+#~ "<ul>\n"
+#~ "<li>Predaj / Fakturácia / Zmluvy na obnovenie</li>\n"
+#~ "</ul>\n"
+#~ "<p>\n"
+#~ "Vďaka,\n"
+#~ "</p>\n"
+#~ "\n"
+#~ "<pre>\n"
+#~ "-- \n"
+#~ "Odoo automatický email\n"
+#~ "</pre>"
+
+#~ msgid "Action Needed"
+#~ msgstr "Potrebná akcia"
+
+#~ msgid "Budget Lines"
+#~ msgstr "Rozpočtové riadky"
+
+#~ msgid "Check this box to manage customer activities through this project"
+#~ msgstr ""
+#~ "Zaškrtnite, ak chcete riadiť zákaznícke činnosti prostredníctvom tohto "
+#~ "projektu"
+
+#~ msgid "Check this field if this project manages timesheets"
+#~ msgstr "Zaškrtnite toto pole ak tento projekt riadi časové rozvrhy."
+
+#~ msgid "Comercial Partner"
+#~ msgstr "Komerčný partner"
+
+#~ msgid "Date of the last message posted on the record."
+#~ msgstr "Dátum poslednej správy zaslanej záznamu."
+
+#~ msgid "Followers"
+#~ msgstr "Odberatelia"
+
+#~ msgid "Followers (Channels)"
+#~ msgstr "Odberatelia (Kanály)"
+
+#~ msgid "Followers (Partners)"
+#~ msgstr "Odberatelia (Partnery)"
+
+#~ msgid "If checked new messages require your attention."
+#~ msgstr "Ak zaškrtnuté, nové správy vyžadujú vašu pozornosť."
+
+#~ msgid "If checked, new messages require your attention."
+#~ msgstr "Ak zaškrtnuté, nové správy vyžadujú vašu pozornosť."
+
+#~ msgid "Invoice for subscription ${ctx.get('code')}"
+#~ msgstr "Faktúra za odber ${ctx.get('code')}"
+
+#~ msgid "Invoice_${ctx.get('code')}_${ctx.get('previous_date')}"
+#~ msgstr "Invoice_${ctx.get('code')}_${ctx.get('previous_date')}"
+
+#~ msgid "Is Follower"
+#~ msgstr "Je odberateľ"
+
+#~ msgid "Issues"
+#~ msgstr "Problémy"
+
+#~ msgid "Last Message Date"
+#~ msgstr "Dátum poslednej správy"
+
+#~ msgid "Messages"
+#~ msgstr "Správy"
+
+#~ msgid "Messages and communication history"
+#~ msgstr "Správy a história komunikácie"
+
+#~ msgid "Number of Actions"
+#~ msgstr "Počet akcií"
+
+#~ msgid "Number of messages which requires an action"
+#~ msgstr "Počet správ ktoré vyžadujú akciu"
+
+#~ msgid "Number of unread messages"
+#~ msgstr "Počet vrstiev neprečítaných správ"
+
+#~ msgid "Open Subscriptions Menu"
+#~ msgstr "Otvoriť menu odberov"
+
+#~ msgid "Payment reminder for subscription ${object.code}"
+#~ msgstr "Pripomienka platby za odber ${object.code}"
+
+#~ msgid "Set to Open"
+#~ msgstr "Nastaviť na otvorené"
+
+#~ msgid "Susbcriptions to Renew"
+#~ msgstr "Odbery na obnovenie"
+
+#~ msgid ""
+#~ "Templates are used to prefigure subscription that \n"
+#~ "                can be selected by the salespeople to quickly configure "
+#~ "the\n"
+#~ "                terms and conditions of the subscription."
+#~ msgstr ""
+#~ "Šablóny sa používajú na predznamenanie odberu ktoré\n"
+#~ "môžu byť vybrané pomocou predajcov na rýchlu konfiguráciu\n"
+#~ "podmienok odberu."
+
+#~ msgid "Termination of subscription ${object.code}"
+#~ msgstr "Ukončenie odberu ${object.code}"
+
+#~ msgid "Timesheets"
+#~ msgstr "Časový rozvrh"
+
+#~ msgid "Type of Account"
+#~ msgstr "Typ účtu"
+
+#~ msgid "Unread Messages"
+#~ msgstr "Neprečítané správy"
+
+#~ msgid "Unread Messages Counter"
+#~ msgstr "Počítadlo neprečítaných správ"
+
+#~ msgid "Website Messages"
+#~ msgstr "Správy webovej stránky"
+
+#~ msgid "Website communication history"
+#~ msgstr "História komunikácie webovej stránky"
+
+#, fuzzy
+#~ msgid "Cancel"
+#~ msgstr "Zrušené"
+
+#, fuzzy
+#~ msgid "Close/Cancel Reason"
+#~ msgstr "Dôvod zavretia"
+
+#, fuzzy
+#~ msgid "Creation"
+#~ msgstr "Vytvorené"
+
+#, fuzzy
+#~ msgid "Manage Subscriptions"
+#~ msgstr "Odbery predaja"
+
+#, fuzzy
+#~ msgid "Reason"
+#~ msgstr "Dôvod zavretia"
+
+#, fuzzy
+#~ msgid "Renewal"
+#~ msgstr "Na obnovenie"
+
+#, fuzzy
+#~ msgid "Report"
+#~ msgstr "Výkazy"
+
+#, fuzzy
+#~ msgid "See Subscriptions"
+#~ msgstr "Odbery predaja"
+
+#, fuzzy
+#~ msgid "Subscription Management"
+#~ msgstr "Riadky odberu"
+
+#, fuzzy
+#~ msgid "The user will have write access to Subscriptions."
+#~ msgstr "Používateľ bude mať zapisovací prístup k zmluvám."
+
+#, fuzzy
+#~ msgid "sale.subscription.close.reason.wizard"
+#~ msgstr "sale.subscription.close.reason"

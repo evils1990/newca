@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="tag_crm" model="helpdesk.tag">
+        <field name="name">CRM</field>
+    </record>
+    <record id="tag_website" model="helpdesk.tag">
+        <field name="name">Website</field>
+    </record>
+    <!-- Set the demo user as a helpdesk user -->
+    <record id="group_helpdesk_user" model="res.groups">
+        <field name="users" eval="[(4,ref('base.user_demo'))]"/>
+    </record>
+</odoo>

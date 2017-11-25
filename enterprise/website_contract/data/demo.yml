@@ -1,0 +1,47 @@
+-
+    Creating demo data that require looking for accounts
+-
+    !python {model: ir.model.data} : |
+        company = self.env.user.company_id
+        journal = self.env['account.journal'].search([('type', '=', 'general'), ('id', '!=', company.currency_exchange_journal_id.id)], limit=1)
+        expense_account = self.env['account.account'].search([('user_type_id', '=', ref('account.data_account_type_expenses'))], limit=1)
+        xfa_account = self.env['account.account'].search([('user_type_id', '=', ref('account.data_account_type_fixed_assets'))], limit=1)
+        if not xfa_account:
+            xfa_account = self.env['account.account'].search([('user_type_id', '=', ref('account.data_account_type_current_assets'))], limit=1)
+        from datetime import datetime, timedelta
+        import time
+        if xfa_account and expense_account and journal:
+            vals = {
+                'journal_id': journal.id,
+                'name': 'Odoo Yearly',
+                'type': 'sale',
+                'method_period': 1,
+                'method_number': 12,
+                'account_asset_id': xfa_account.id,
+                'account_depreciation_id': xfa_account.id,
+                'account_depreciation_expense_id': expense_account.id,
+            }
+            self._update('account.asset.category', 'website_contract', vals, 'website_contract_asset_year')
+            vals = {
+                'journal_id': journal.id,
+                'name': 'Odoo Monthly',
+                'type': 'sale',
+                'method_period': 1,
+                'method_number': 1,
+                'account_asset_id': xfa_account.id,
+                'account_depreciation_id': xfa_account.id,
+                'account_depreciation_expense_id': expense_account.id,
+            }
+            self._update('account.asset.category', 'website_contract', vals, 'website_contract_asset_month')
+            self._update('sale.subscription.template', 'website_contract', {'template_asset_category_id': ref('website_contract.website_contract_asset_year')}, 'odoo_yearly')
+            self._update('sale.subscription.template', 'website_contract', {'template_asset_category_id': ref('website_contract.website_contract_asset_month')}, 'odoo_monthly')
+            self._update('sale.subscription', 'website_contract', {'asset_category_id': ref('website_contract.website_contract_asset_month')}, 'contract_portal_21')
+
+-
+    Create an invoice for the dashboard
+-
+    !python {model: sale.subscription, id: website_contract.contract_portal_21} : |
+        company = self.env.user.company_id
+        journal = self.env['account.journal'].search([('type', '=', 'general'), ('id', '!=', company.currency_exchange_journal_id.id)])
+        if journal and self.invoice_count < 1:
+            invoice = self._recurring_create_invoice()

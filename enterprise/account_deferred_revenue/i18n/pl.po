@@ -1,0 +1,255 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_deferred_revenue
+# 
+# Translators:
+# Martin Trigaux <mat@odoo.com>, 2016
+# Piotr Szlązak <szlazakpiotr@gmail.com>, 2016
+# Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2016
+# Jakobus Buntownikus <buntownix@gmail.com>, 2016
+# zbik2607 <darek@krokus.com.pl>, 2016
+# Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-29 14:58+0000\n"
+"PO-Revision-Date: 2016-09-29 14:58+0000\n"
+"Last-Translator: Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2016\n"
+"Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+msgid "Assets"
+msgstr "Aktywa"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Assets in running state"
+msgstr "Środki w stanie aktywnym"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Category"
+msgstr "Kategoria"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Category of asset"
+msgstr "Kategoria aktywu"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Company"
+msgstr "Firma"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Compute Revenue"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Confirm"
+msgstr "Potwierdź"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Cumulative Revenue"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Customer"
+msgstr "Klient"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Date of Revenue Sales"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Date of asset"
+msgstr "Data aktywu"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_asset_revenue_report
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_asset_revenue_report
+#: model:ir.ui.view,arch_db:account_deferred_revenue.action_account_revenue_report_graph
+#: model:ir.ui.view,arch_db:account_deferred_revenue.action_account_revenue_report_pivot
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Deferred Revenue Analysis"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_invoice_asset_form
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_invoice_revenue_recognition_category
+msgid "Deferred Revenue Type"
+msgstr "Typ odroczonego dochodu"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Deferred Revenue name"
+msgstr "nazwa odroczonego dochodu"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_account_revenue_form
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_account_revenue_recognition
+msgid "Deferred Revenues"
+msgstr "Odroczone dochody"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_account_asset_asset_list_normal_sale
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_account_asset_asset_list_normal_sale
+msgid "Deferred Revenues Types"
+msgstr "Typy odroczonych dochodów"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Depreciation Lines"
+msgstr "Pozycje amortyzacji"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Draft"
+msgstr "Projekt"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Extended Filters..."
+msgstr "Rozszerzone filtry..."
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,help:account_deferred_revenue.action_asset_revenue_report
+msgid ""
+"From this report, you can have an overview of your deferred revenue. The\n"
+"            search bar can also be used to personalize your revenue recognition reporting."
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_recognition_depreciation_confirmation_wizard
+msgid "Generate Deferred Revenue Entries"
+msgstr "generuj odroczone dochody wejść"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Gross value of asset"
+msgstr "Cena brutto aktywów"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Group By..."
+msgstr "Grupuj wg..."
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Items"
+msgstr "Pozycje"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Modify Revenue"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Number of Revenues"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_recognition_depreciation_confirmation_wizard
+msgid "Post Installment Lines"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Posted"
+msgstr "Zaksięgowano"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Posted depreciation lines"
+msgstr "Zaksięgowane pozycje amortyzacji"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Recognition in draft state"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Residual"
+msgstr "Pozostało"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Revenue"
+msgstr "Przychód"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Revenue Board"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Revenue Date"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Revenue Information"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Revenue Month"
+msgstr "dochód miesięczny"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+msgid "Revenue Name"
+msgstr "nazwa przychodu"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Revenue Recognition"
+msgstr "Rozpoznanie przychodu"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Running"
+msgstr "Uruchomione"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Sales Month"
+msgstr "Sprzedaż miesięczna"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Sell or Dispose"
+msgstr "Sprzedać lub likwidacja"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Set to Draft"
+msgstr "Ustaw na projekt"

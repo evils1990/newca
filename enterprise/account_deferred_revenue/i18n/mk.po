@@ -1,0 +1,261 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_deferred_revenue
+#
+# Translators:
+# Aleksandar Vangelovski <aleksandarv@hbee.eu>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-29 12:08+0000\n"
+"PO-Revision-Date: 2016-08-12 14:50+0000\n"
+"Last-Translator: Aleksandar Vangelovski <aleksandarv@hbee.eu>\n"
+"Language-Team: Macedonian (http://www.transifex.com/odoo/odoo-9/language/"
+"mk/)\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+msgid "Assets"
+msgstr "Средства"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Assets in running state"
+msgstr "Средства во работна состојба"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Category"
+msgstr "Категорија"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Category of asset"
+msgstr "Категорија на средства"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Company"
+msgstr "Компанија"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Compute Depreciation"
+msgstr "Пресметај амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Confirm"
+msgstr "Потврди"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Customer"
+msgstr "Купувач"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Date of Revenue Sales"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Date of asset"
+msgstr "Датум на средство"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_asset_revenue_report
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_asset_revenue_report
+#: model:ir.ui.view,arch_db:account_deferred_revenue.action_account_revenue_report_graph
+#: model:ir.ui.view,arch_db:account_deferred_revenue.action_account_revenue_report_pivot
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Deferred Revenue Analysis"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_invoice_revenue_recognition_category
+msgid "Deferred Revenue Category"
+msgstr "Категорија на одложени приходи"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Deferred Revenue name"
+msgstr "Име на одложен приход"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_account_revenue_form
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_account_revenue_recognition
+msgid "Deferred Revenues"
+msgstr "Одложени приходи"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_account_asset_asset_list_normal_sale
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_action_account_asset_asset_list_normal_sale
+msgid "Deferred Revenues Types"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Depreciation"
+msgstr "Амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Depreciation Board"
+msgstr "Одбор за амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Depreciation Information"
+msgstr "Информации на амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Depreciation Lines"
+msgstr "Ставки на амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Draft"
+msgstr "Нацрт"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Extended Filters..."
+msgstr "Проширени филтри..."
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,help:account_deferred_revenue.action_asset_revenue_report
+msgid ""
+"From this report, you can have an overview of your deferred revenue. The\n"
+"            search bar can also be used to personalize your revenue "
+"recognition reporting."
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.menu,name:account_deferred_revenue.menu_recognition_depreciation_confirmation_wizard
+msgid "Generate Deferred Revenue Entries"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Gross value of asset"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Group By..."
+msgstr "Групирај по..."
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Invoice"
+msgstr "Фактура"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Items"
+msgstr "Елементи"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Modify Depreciation"
+msgstr "Модификувај Амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Partner"
+msgstr "Партнер"
+
+#. module: account_deferred_revenue
+#: model:ir.actions.act_window,name:account_deferred_revenue.action_recognition_depreciation_confirmation_wizard
+msgid "Post Installment Lines"
+msgstr "Пост инсталирачки ставки"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Posted"
+msgstr "Книжено"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Posted depreciation lines"
+msgstr "Објавени ставки за амортизација"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Recognition in draft state"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Residual"
+msgstr "Остаток"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Revenue Month"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_asset_sale_tree
+msgid "Revenue Name"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Revenue Recognition"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_invoice_asset_form
+msgid "Revenue Recognition Category"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Running"
+msgstr "Стартување"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_asset_revenue_report_search
+msgid "Sales Month"
+msgstr ""
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Sell or Dispose"
+msgstr "Продади или отфрли"
+
+#. module: account_deferred_revenue
+#: model:ir.ui.view,arch_db:account_deferred_revenue.view_account_asset_revenue_form
+msgid "Set to Draft"
+msgstr "Поставено на Предлог"
+
+#, fuzzy
+#~ msgid "Compute Revenue"
+#~ msgstr "Пресметај амортизација"
+
+#, fuzzy
+#~ msgid "Modify Revenue"
+#~ msgstr "Модификувај Амортизација"
+
+#, fuzzy
+#~ msgid "Number of Revenues"
+#~ msgstr "Одложени приходи"
+
+#, fuzzy
+#~ msgid "Revenue Date"
+#~ msgstr "Име на одложен приход"
+
+#, fuzzy
+#~ msgid "Revenue Information"
+#~ msgstr "Информации на амортизација"

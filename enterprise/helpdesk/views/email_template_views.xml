@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_helpdesk_email_template_tree">
+            <field name="name">Email Templates</field>
+            <field name="res_model">mail.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="search_view_id" ref="mail.view_email_template_search"/>
+            <field name="view_id" ref="mail.email_template_tree" />
+            <field name="domain">[('model', '=', 'helpdesk.ticket')]</field>
+            <field name="context">{'default_model': 'helpdesk.ticket' }</field>
+    </record>
+
+    <menuitem
+        action="action_helpdesk_email_template_tree"
+        id="helpdesk_templates_menu"
+        sequence="3" parent="helpdesk.helpdesk_menu_config" groups="base.group_no_one"/>
+</odoo>

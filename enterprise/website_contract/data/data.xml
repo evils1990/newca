@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- enable discount in sales config -->
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('sale.group_discount_per_so_line'))]"/>
+    </record>
+
+    <!-- Recurrent payment emails -->
+    <record id="email_payment_close" model="mail.template">
+        <field name="name">Website Contract: Payment failure</field>
+        <field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
+        <field name="subject">Termination of subscription ${object.code}</field>
+        <field name="email_to">${ctx['email_to'] or ''}</field>
+        <field name="model_id" ref="sale_contract.model_sale_subscription"/>
+        <field name="body_html"><![CDATA[
+<div summary="o_mail_template" style="padding:0px; width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="center" width="200" style="padding:0px 10px 5px 5px;font-size: 12px">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="top" style="width:600px; padding:0px 10px 5px 5px;">
+                <div>
+                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin:15px auto;padding:0">
+                </div>
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px; width:600px; max-width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                <p>Hello ${object.partner_id.name},</p>
+                <p>
+                % if ctx.get('payment_token) and ctx.get('total_amount'):
+                  Our final attempt to process a payment for your subscription using your payment method
+                  ${ctx['payment_token']}
+                  for ${ctx['total_amount']} ${ctx.get('currency')} failed.
+                  % if ctx.get('error'):
+                    Your bank or credit institution gave the following details about the issue: <pre>${ctx['error']}</pre>.
+                  %endif
+                % else:
+                  Our final attempt to process a payment for your subscription failed because we have no payment method recorded for you.
+                % endif 
+                </p>
+
+                <p>
+                  As your payment should have been made <strong>15 days ago</strong>, your subscription has been terminated.
+                </p>
+
+                <br/>
+                <p>Should you wish to resolve this issue, do not hesitate to contact us.</p>
+                <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+            </td>
+        </tr><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                % if user.signature
+                <p style="font-size: 14px;">${user.signature | safe}
+                </p>
+                % endif
+                <p style="font-size: 11px;"><strong>Sent by
+                <a href="${user.company_id.website}" style="text-decoration:none; color: #875A7B;">
+                    <strong>${user.company_id.name}</strong>
+                </a> using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;"><strong>Odoo</strong></a>
+                </strong></p>
+            </td>
+        </tr></tbody>
+    </table>
+</div>]]></field>
+    </record>
+
+    <record id="email_payment_reminder" model="mail.template">
+        <field name="name">Website Contract: Payment reminder</field>
+        <field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
+        <field name="subject">Payment reminder for subscription ${object.code}</field>
+        <field name="email_to">${ctx['email_to'] or ''}</field>
+        <field name="model_id" ref="sale_contract.model_sale_subscription"/>
+        <field name="body_html"><![CDATA[
+<div summary="o_mail_template" style="padding:0px; width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="center" width="200" style="padding:0px 10px 5px 5px;font-size: 12px">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="top" style="width:600px; padding:0px 10px 5px 5px;">
+                <div>
+                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin:15px auto;padding:0">
+                </div>
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px; width:600px; max-width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                <p>Hello ${object.partner_id.name},</p>
+                <p>
+                % if ctx.get('payment_token') and ctx.get('total_amount'):
+                  We were unable to process a payment for your subscription using your payment method
+                  ${ctx['payment_token']}
+                  for ${ctx['total_amount']} ${ctx.get('currency')}.
+                  % if ctx.get('error'):
+                    Your bank or credit institution gave the following details about the issue: <pre>${ctx['error']}</pre>.
+                  %endif
+                % else:
+                  We were unable to process a payment for your subscription because we have no payment method recorded for you.
+                % endif 
+                </p>
+
+                <p>
+                  Your subscription ${ctx.get('code')} is still valid but will be <b>suspended</b>
+                  on ${ctx.get('date_close')} unless the payment succeeds in the mean time (we will retry once every day).
+                  Please double-check that you have sufficient funds.
+                </p>
+
+                <br/>
+                <p>If you have any question, do not hesitate to contact us.</p>
+                <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+            </td>
+        </tr><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                % if user.signature
+                <p style="font-size: 14px;">${user.signature | safe}
+                </p>
+                % endif
+                <p style="font-size: 11px;"><strong>Sent by
+                <a href="${user.company_id.website}" style="text-decoration:none; color: #875A7B;">
+                    <strong>${user.company_id.name}</strong>
+                </a> using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;"><strong>Odoo</strong></a>
+                </strong></p>
+            </td>
+        </tr></tbody>
+    </table>
+</div>]]></field>
+    </record>
+
+    <record id="email_payment_success" model="mail.template">
+        <field name="name">Website Contract: Payment success</field>
+        <field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
+        <field name="subject">Invoice for subscription ${ctx.get('code')}</field>
+        <field name="email_to">${ctx['email_to'] or ''}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="report_template" ref="account.account_invoices" />
+        <field name="report_name">Invoice_${ctx.get('code')}_${ctx.get('previous_date')}</field>
+        <field name="body_html"><![CDATA[
+<div summary="o_mail_template" style="padding:0px; width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="center" width="200" style="padding:0px 10px 5px 5px;font-size: 12px">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="top" style="width:600px; padding:0px 10px 5px 5px;">
+                <div>
+                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin:15px auto;padding:0">
+                </div>
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px; width:600px; max-width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                <p>Dear ${object.partner_id.name},</p>
+                <p>
+                    Your subscription (${ctx.get('code')}) has just been renewed
+                    %if ctx.get('total_amount') and ctx.get('payment_token'):
+                        via a payment of ${ctx['total_amount']} ${ctx['currency']} charged on ${ctx['payment_token']}
+                        .
+                    %endif
+                </p>
+                <p>You will find your invoice attached.</p>
+                %if ctx.get('next_date'):
+                <p>
+                  Your next invoice will be on ${ctx.get('next_date')}.
+                </p>
+                %endif
+                <br/>
+                <p>If you have any question, do not hesitate to contact us.</p>
+                <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+            </td>
+        </tr><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                % if user.signature
+                <p style="font-size: 14px;">${user.signature | safe}
+                </p>
+                % endif
+                <p style="font-size: 11px;"><strong>Sent by
+                <a href="${user.company_id.website}" style="text-decoration:none; color: #875A7B;">
+                    <strong>${user.company_id.name}</strong>
+                </a> using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;"><strong>Odoo</strong></a>
+                </strong></p>
+            </td>
+        </tr></tbody>
+    </table>
+</div>]]></field>
+    </record>
+
+    <record id="email_contract_open" model="mail.template">
+        <field name="name">Website Contract: Quote Validation</field>
+        <field name="email_from">${(object.subscription_id.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
+        <field name="subject">Your subscription ${object.subscription_id.code} is active!</field>
+        <field name="email_to">${ctx.get('email_to') or object.partner_id.email}</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="body_html"><![CDATA[
+<div summary="o_mail_template" style="padding:0px; width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="center" width="200" style="padding:0px 10px 5px 5px;font-size: 12px">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+    <table cellspacing="0" cellpadding="0" style="width:600px; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td valign="top" style="width:600px; padding:0px 10px 5px 5px;">
+                <div>
+                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin:15px auto;padding:0">
+                </div>
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px; width:600px; max-width:600px; margin:0 auto; background: #FFFFFF repeat top /100%;color:#777777">
+    <table cellspacing="0" cellpadding="0" style="width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit">
+        <tbody><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                <p>Dear ${object.subscription_id.partner_id.name},</p>
+                <p>Your subscription ${object.subscription_id.name} is active!</p>
+
+                <p>You can view your subscription online by going to our <a style="text-decoration:none; color: #875A7B;" href="/my/home">Online Portal</a> or by following this link
+                <p style="text-align: center;"><a style="padding: 5px 10px; font-size: 12px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 0px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius:3px" href="/my/contract/${object.subscription_id.id}/${object.subscription_id.uuid}">View Subscription</a></p>
+
+                <p>With this page, you can easily manage your contracts:</p>
+                <ul>
+                    <li>Add or remove options</li>
+                    <li>Change your recurring period from monthly to annually</li>
+                    <li>Contact your sales representative</li>
+                </ul>
+                <p>You can access this link publicly or share it with someone else to give him/her the right to manage this subscription.</p>
+
+                <p>If you have any question, do not hesitate to contact us.</p>
+                <p>Thank you for choosing ${object.subscription_id.company_id.name or 'us'}!</p>
+            </td>
+        </tr><tr>
+            <td style="padding:0px 10px 5px 5px;font-size: 14px;">
+                % if user.signature
+                <p style="font-size: 14px;">${user.signature | safe}
+                </p>
+                % endif
+                <p style="font-size: 11px;"><strong>Sent by
+                <a href="${user.company_id.website}" style="text-decoration:none; color: #875A7B;">
+                    <strong>${user.company_id.name}</strong>
+                </a> using <a href="www.odoo.com" style="text-decoration:none; color: #875A7B;"><strong>Odoo</strong></a>
+                </strong></p>
+            </td>
+        </tr></tbody>
+    </table>
+</div>]]></field>
+    </record>
+
+</odoo>

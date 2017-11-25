@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_backend" name="helpdesk assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/helpdesk/static/src/less/helpdesk.less"/>
+            <script type="text/javascript" src="/helpdesk/static/src/js/helpdesk_dashboard.js"></script>
+        </xpath>
+    </template>
+</odoo>

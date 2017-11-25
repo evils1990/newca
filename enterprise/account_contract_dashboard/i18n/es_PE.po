@@ -1,0 +1,629 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_contract_dashboard
+#
+# Translators:
+# Carlos Eduardo Rodriguez Rossi <crodriguez@samemotion.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-29 12:08+0000\n"
+"PO-Revision-Date: 2016-06-15 21:19+0000\n"
+"Last-Translator: Carlos Eduardo Rodriguez Rossi <crodriguez@samemotion.com>\n"
+"Language-Team: Spanish (Peru) (http://www.transifex.com/odoo/odoo-9/language/"
+"es_PE/)\n"
+"Language: es_PE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:250
+#, python-format
+msgid "# of Contracts"
+msgstr "# de Contratos"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:261
+#, python-format
+msgid "% Complete (success)"
+msgstr "% Completado (éxito)"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:276
+#, python-format
+msgid "1 month ago"
+msgstr "1 mes atrás"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:292
+#, python-format
+msgid "12 months ago"
+msgstr "12 meses atrás"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:284
+#, python-format
+msgid "3 months ago"
+msgstr "3 meses atrás"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:308
+#, python-format
+msgid "30 Days Ago"
+msgstr "30 Días Atrás"
+
+#. module: account_contract_dashboard
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "Active invoices"
+msgstr "Facturas activas"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:375
+#, python-format
+msgid "Annual Run-Rate"
+msgstr "Ratio de Ejecución Anual"
+
+#. module: account_contract_dashboard
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "Asset End Date"
+msgstr "Fecha Final del Activo"
+
+#. module: account_contract_dashboard
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "Asset Start Date"
+msgstr "Fecha Inicio del Activo"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:506
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:980
+#, python-format
+msgid "Churned MRR"
+msgstr "MRR Cancelados"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:356
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:382
+#, python-format
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:411
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:133
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:142
+#, python-format
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:151
+#, python-format
+msgid "Contracts Churn:"
+msgstr "Contratos Cancelados:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:138
+#, python-format
+msgid "Contracts Growth:"
+msgstr "Crecimiento de Contratos:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:271
+#, python-format
+msgid "Current"
+msgstr "Actual"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:359
+#, python-format
+msgid "Current MRR"
+msgstr "Actual MRR"
+
+#. module: account_contract_dashboard
+#: model:ir.ui.menu,name:account_contract_dashboard.menu_sale_subscription_dashboard
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:38
+#, python-format
+msgid "Detailed Analysis"
+msgstr "Análisis Detallado"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.client,name:account_contract_dashboard.action_contract_dashboard_report_detailed
+msgid "Detailed KPI"
+msgstr "KPI Detallado"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:516
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:988
+#, python-format
+msgid "Down MRR"
+msgstr "Adelanto MRR"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:511
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:984
+#, python-format
+msgid "Expansion MRR"
+msgstr "Expansión de MRR"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:69
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:126
+#, python-format
+msgid "Exponential"
+msgstr "Exponencial"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:236
+#, python-format
+msgid "Filter on contracts"
+msgstr "Filtro en contratos"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:429
+#, python-format
+msgid "Forecasted Annual Contracts Growth"
+msgstr "Crecimiento Anual de Contratos Pronosticado"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:423
+#, python-format
+msgid "Forecasted Annual MRR Growth"
+msgstr "Crecimiento Anual de MRR Pronosticado"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.client,name:account_contract_dashboard.action_contract_dashboard_report_forecast
+msgid "Forecasted KPIs"
+msgstr "KPIs Pronosticados"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.act_window,help:account_contract_dashboard.action_invoice_line_entries_report
+msgid ""
+"From this view, have an analysis of your different invoice line entries."
+msgstr ""
+"Desde esta vista, obtenga un análisis de sus diferentes asientos de líneas "
+"de factura."
+
+#. module: account_contract_dashboard
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "Group By"
+msgstr "Agrupado por"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:66
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:122
+#, python-format
+msgid "Growth Type:"
+msgstr "Tipo de Crecimiento:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:11
+#, python-format
+msgid "Hi there!"
+msgstr "¡Hola ahí!"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:174
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:185
+#, python-format
+msgid "In"
+msgstr "En"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.act_window,name:account_contract_dashboard.action_invoice_line_entries_report
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_pivot
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "Invoice Line Entries Analysis"
+msgstr "Análisis de Asientos de Línea de Factura"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:384
+#, python-format
+msgid "Lifetime Value"
+msgstr "Valor del Tiempo de Vida"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:68
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:124
+#, python-format
+msgid "Linear"
+msgstr "Lineal"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:211
+#, python-format
+msgid "List of NRR invoices"
+msgstr "Lista de facturas NRR"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:207
+#, python-format
+msgid "List of contract modifications"
+msgstr "Lista de modificaciones de contratos"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:393
+#, python-format
+msgid "Logo Churn"
+msgstr "Logo Cancelado"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:338
+#, python-format
+msgid "MRR :"
+msgstr "MRR :"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:973
+#, python-format
+msgid "MRR Growth"
+msgstr "Crecimiento MRR"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:339
+#, python-format
+msgid "Monthly Recurring Revenue"
+msgstr "Ingreso Recurrente Mensual"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:51
+#, python-format
+msgid "Monthly Recurring Revenue Growth"
+msgstr "Crecimiento del Ingreso Recurrente Mensual"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:107
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:164
+#, python-format
+msgid "Months"
+msgstr "Meses"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:996
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:384
+#, python-format
+msgid "NRR"
+msgstr "NRR"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:342
+#, python-format
+msgid "NRR :"
+msgstr "NRR :"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:521
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:992
+#, python-format
+msgid "Net New MRR"
+msgstr "Nuevo MRR Neto"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:348
+#, python-format
+msgid "Net Revenue"
+msgstr "Ingreso Neto"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:501
+#: code:addons/account_contract_dashboard/static/src/js/account_contract_dashboard.js:976
+#, python-format
+msgid "New MRR"
+msgstr "Nuevo MRR"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:357
+#, python-format
+msgid "Non-Recurring Revenue"
+msgstr "Ingreso No-Recurrente"
+
+#. module: account_contract_dashboard
+#: model:ir.ui.view,arch_db:account_contract_dashboard.invoice_line_entries_report_search
+msgid "OUT invoices"
+msgstr "Facturas OUT"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:355
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:381
+#, python-format
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:199
+#, python-format
+msgid "Pick a salesman and a period"
+msgstr "Escoja un vendedor y un periodo"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:249
+#, python-format
+msgid "Plan"
+msgstr "Plan"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:358
+#, python-format
+msgid "Previous MRR"
+msgstr "MRR Previo"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:103
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:160
+#, python-format
+msgid "Projection Time:"
+msgstr "Tiempo de Proyección:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:200
+#, python-format
+msgid "Recurring Revenue Dashboard for"
+msgstr "Tablero de Ingreso Recurrente para"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:402
+#, python-format
+msgid "Revenue Churn"
+msgstr "Ingreso Cancelado"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:94
+#, python-format
+msgid "Revenue Churn:"
+msgstr "Ingreso Cancelado:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:81
+#, python-format
+msgid "Revenue Growth:"
+msgstr "Crecimiento de Ingresos:"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.client,name:account_contract_dashboard.action_contract_dashboard_report_main
+#: model:ir.ui.menu,name:account_contract_dashboard.menu_action_contract_dashboard_report_main
+msgid "Revenue KPIs"
+msgstr "KPIs de Ingreso"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/stat_types.py:366
+#, python-format
+msgid "Revenue per Contract"
+msgstr "Ingreso por Contrato"
+
+#. module: account_contract_dashboard
+#: model:ir.actions.client,name:account_contract_dashboard.action_contract_dashboard_report_salesman
+#: model:ir.ui.menu,name:account_contract_dashboard.menu_action_contract_dashboard_report_salesman
+#, fuzzy
+msgid "Salesperson Dashboard"
+msgstr "Tablero de Vendedores"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:316
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:332
+#, python-format
+msgid "Sample data"
+msgstr "Data de ejemplo"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:129
+#, python-format
+msgid "Starting Contract:"
+msgstr "Contrato Inicial:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:72
+#, python-format
+msgid "Starting MRR:"
+msgstr "MRR Inicial:"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:357
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:383
+#, python-format
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:375
+#, python-format
+msgid "There is no NRR invoice during this period."
+msgstr "No hay factura NRR durante este periodo"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:348
+#, python-format
+msgid "There is no contract modification during this period."
+msgstr "No hay modificación de contrato durante este periodo."
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:12
+#, python-format
+msgid "This is a sample dashboard. Your actual dashboard will be"
+msgstr ""
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:233
+#, python-format
+msgid "Update"
+msgstr "Actualizar"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:13
+#, python-format
+msgid "Your Subscriptions"
+msgstr ""
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:12
+#, python-format
+msgid "activated once your have invoiced your first subscription."
+msgstr ""
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:180
+#, python-format
+msgid "churn, your MRR will be"
+msgstr "cancelado, su MRR será"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:191
+#, python-format
+msgid "churn, your contract base will be"
+msgstr "cancelado, sus contrato base será"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:189
+#, python-format
+msgid "contract growth and"
+msgstr "crecimiento de contratos y"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:178
+#, python-format
+msgid "growth and"
+msgstr "crecimiento y"
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:176
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:187
+#, python-format
+msgid "months with"
+msgstr "meses con"
+
+#. module: account_contract_dashboard
+#: code:addons/account_contract_dashboard/controllers/revenue_kpis_dashboard.py:21
+#: code:addons/account_contract_dashboard/controllers/revenue_kpis_dashboard.py:31
+#, python-format
+msgid "name"
+msgstr ""
+
+#. module: account_contract_dashboard
+#. openerp-web
+#: code:addons/account_contract_dashboard/static/src/xml/account_contract_dashboard.xml:233
+#, python-format
+msgid "to"
+msgstr "para"
+
+#~ msgid "Salesman Dashboard"
+#~ msgstr "Tablero de Vendedores"
+
+#~ msgid "This is a sample dashboard. Your actual dashboard"
+#~ msgstr "Este es un tablero de muestra. Su tablero actual"
+
+#~ msgid "Your Contracts"
+#~ msgstr "Sus Contratos"
+
+#~ msgid "will be activated after having invoiced your first contract."
+#~ msgstr "será activado después de haber facturado su primer contrato."
+
+#, fuzzy
+#~ msgid "By Month"
+#~ msgstr "Meses"
+
+#, fuzzy
+#~ msgid "Cohort Analysis"
+#~ msgstr "Análisis Detallado"
+
+#, fuzzy
+#~ msgid "Create a Template"
+#~ msgstr "Plantilla"
+
+#, fuzzy
+#~ msgid "Current Value: "
+#~ msgstr "Actual"
+
+#, fuzzy
+#~ msgid "Filter on companies"
+#~ msgstr "Filtro en contratos"
+
+#, fuzzy
+#~ msgid "Filter on tags"
+#~ msgstr "Filtro en contratos"
+
+#, fuzzy
+#~ msgid "Number of Contracts"
+#~ msgstr "# de Contratos"
+
+#, fuzzy
+#~ msgid "Start date:"
+#~ msgstr "Fecha Inicio del Activo"
+
+#, fuzzy
+#~ msgid "There is no subscription for this period."
+#~ msgstr "No hay modificación de contrato durante este periodo."
+
+#, fuzzy
+#~ msgid ""
+#~ "This is a sample dashboard. Your actual dashboard will be activated after"
+#~ msgstr "Este es un tablero de muestra. Su tablero actual"
+
+#, fuzzy
+#~ msgid "Value of Contracts"
+#~ msgstr "# de Contratos"
+
+#, fuzzy
+#~ msgid ""
+#~ "having defined a subscription template and invoiced your first "
+#~ "subscription."
+#~ msgstr "será activado después de haber facturado su primer contrato."
