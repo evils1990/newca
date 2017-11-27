@@ -3,12 +3,16 @@
     <data noupdate="0">
 
         <!-- Model Sale Teams -->
+<<<<<<< HEAD
         <record model="ir.module.category" id="nca_access_module_category">
             <field name="name">NCA Access rights</field>
             <field name="description">Access group for NCA manage</field>
         </record>
 		
 		<record id="group_sale_teamleader" model="res.groups">
+=======
+        <record id="group_sale_teamleader" model="res.groups">
+>>>>>>> ebb32678decb5118ffb143f33798b342a0a2db0d
             <field name="name">User: Team leader</field>
             <field name="category_id" ref="nca_access_module_category"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user')),(4,ref('sales_team.group_sale_salesman'))]"/>
@@ -48,7 +52,11 @@
 
         <!-- Model Res Partner -->
 
+<<<<<<< HEAD
 		<!-- Sale leader see Sale Team Configuration -->
+=======
+
+>>>>>>> ebb32678decb5118ffb143f33798b342a0a2db0d
         <record id="sales_team.menu_sale_config" model="ir.ui.menu">
             <field name="groups_id" eval="[(4,ref('group_sale_teamleader'))]"/>
         </record>
