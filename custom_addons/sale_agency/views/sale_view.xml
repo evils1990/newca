@@ -9,6 +9,11 @@
                 <field name="crm_type" required="True"/>
                 <field name="parent_id" attrs="{'invisible':[('crm_type','!=','agency')]}"/>
             </field>
+			<xpath expr="//page[@name='more_info']" position="inside">
+                <group string="Price List">
+                    <field name="pricelist_id" required="True"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
@@ -20,6 +25,9 @@
         <field name="arch" type="xml">
             <field name="team_id" position="attributes">
                 <attribute name="required">1</attribute>
+            </field>
+			<field name="pricelist_id" position="attributes">
+                <attribute name="groups" eval=""/>
             </field>
         </field>
     </record>

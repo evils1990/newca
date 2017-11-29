@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_crm_team_leader,crm.team.leader,sale.model_crm_team,group_sale_teamleader,1,1,1,1
+access_price_list_leader,price.list.leader,sale_agency.model_product_pricelist,group_sale_teamleader,1,0,0,0
+access_price_list_member,price.list.member,sale_agency.model_product_pricelist,sales_team.group_sale_salesman,1,0,0,0
