@@ -1,4 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_crm_team_leader,crm.team.leader,sale.model_crm_team,group_sale_teamleader,1,1,1,1
-access_price_list_leader,price.list.leader,sale_agency.model_product_pricelist,group_sale_teamleader,1,0,0,0
-access_price_list_member,price.list.member,sale_agency.model_product_pricelist,sales_team.group_sale_salesman,1,0,0,0
+nca_access_crm_team_leader,nca.crm.team.leader,sale.model_crm_team,nca_group_sale_team_leader,1,1,1,1
+nca_access_sale_order_leader,nca.sale.order.leader,portal_sale.model_sale_order,nca_group_sale_team_leader,1,1,1,1
+nca_access_sale_order_line_leader,nca.sale.order.line.leader,sale.model_sale_order_line,nca_group_sale_team_leader,1,1,1,1
+nca_access_crm_team_member,nca.crm.team.member,sale.model_crm_team,nca_group_sale_team_member,1,0,0,0
+nca_access_sale_order_member,nca.sale.order.member,portal_sale.model_sale_order,nca_group_sale_team_member,1,1,1,1
+nca_access_sale_order_line_member,nca.sale.order.line.member,sale.model_sale_order_line,nca_group_sale_team_member,1,1,1,1
+nca_access_pricelist_member,nca.pricelist.member,model_product_pricelist,nca_group_sale_team_member,1,0,0,0
+nca_access_pricelist_leader,nca.pricelist.leader,model_product_pricelist,nca_group_sale_team_leader,1,0,0,0
+nca_access_pricelist_item_member,nca.pricelist.item.member,product.model_product_pricelist_item,nca_group_sale_team_member,1,0,0,0
+nca_access_pricelist_item_leader,nca.pricelist.item.leader,product.model_product_pricelist_item,nca_group_sale_team_leader,1,0,0,0

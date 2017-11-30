@@ -26,9 +26,6 @@
             <field name="team_id" position="attributes">
                 <attribute name="required">1</attribute>
             </field>
-			<field name="pricelist_id" position="attributes">
-                <attribute name="groups" eval=""/>
-            </field>
         </field>
     </record>
 
