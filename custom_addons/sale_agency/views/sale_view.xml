@@ -28,6 +28,15 @@
             </field>
         </field>
     </record>
+	
+	<!-- Sale leader see Sale Team Configuration -->
+    <record id="sales_team.menu_sale_config" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
+    </record>
 
+    <!--Sale leader see report menu-->
+    <record id="sales_team.menu_sale_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
+    </record>
 
 </odoo>

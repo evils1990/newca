@@ -9,3 +9,4 @@ nca_access_pricelist_member,nca.pricelist.member,model_product_pricelist,nca_gro
 nca_access_pricelist_leader,nca.pricelist.leader,model_product_pricelist,nca_group_sale_team_leader,1,0,0,0
 nca_access_pricelist_item_member,nca.pricelist.item.member,product.model_product_pricelist_item,nca_group_sale_team_member,1,0,0,0
 nca_access_pricelist_item_leader,nca.pricelist.item.leader,product.model_product_pricelist_item,nca_group_sale_team_leader,1,0,0,0
+nca_access_sale_report_leader,nca.sale.report.leader,sale.model_sale_report,nca_group_sale_team_leader,1,0,0,0

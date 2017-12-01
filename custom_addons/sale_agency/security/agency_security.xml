@@ -50,15 +50,11 @@
             <field name="groups" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
         </record>
 
-        <record id="sales_team.menu_sale_report" model="ir.ui.menu">
-            <field name="groups_id" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
-        </record>
-
         <record id="nca_rule_sale_order_line_team_leader" model="ir.rule">
             <field name="name">nca.sale.order.line.leader</field>
             <field name="model_id" ref="sale.model_sale_order_line"/>
             <field name="domain_force">
-                [('order_id.team_id','=',user.sale_team_id.id)]
+                ['|',('order_id.team_id','=',user.sale_team_id.id),('order_id.team_id','child_of',user.sale_team_id.id)]
             </field>
             <field name="groups" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
         </record>
@@ -82,12 +78,18 @@
 			<field name="groups" eval="[(4,ref('nca_group_sale_team_member'))]"/>
         </record>
 
-        <!-- Model Res Partner -->
-
-	<!-- Sale leader see Sale Team Configuration -->
-        <record id="sales_team.menu_sale_config" model="ir.ui.menu">
-            <field name="groups_id" eval="[(4,ref('group_sale_teamleader'))]"/>
+        <!-- Sale Team Report -->
+        <record id="nca_rule_sale_report_team_leader" model="ir.rule">
+            <field name="name">nca.pricelist.item.member</field>
+            <field name="model_id" ref="sale.model_sale_report"/>
+            <field name="domain_force">
+                [('team_id','child_of',user.sale_team_id.id)]
+            </field>
+			<field name="groups" eval="[(4,ref('nca_group_sale_team_leader'))]"/>
         </record>
+		
+		<!-- Model Res Partner -->
+
 
     </data>
 
