@@ -1,0 +1,97 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_agency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-02 01:56+0000\n"
+"PO-Revision-Date: 2017-12-02 01:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_agency
+#: model:ir.module.category,description:sale_agency.nca_access_module_category
+msgid "Access group for NCA manage"
+msgstr "Phân quyền đặc thù của NCA"
+
+#. module: sale_agency
+#: selection:crm.team,crm_type:0
+msgid "Agency"
+msgstr "Đại lý"
+
+#. module: sale_agency
+#: selection:crm.team,crm_type:0
+msgid "Collaborator"
+msgstr "Cộng tác viên"
+
+#. module: sale_agency
+#: selection:crm.team,crm_type:0
+msgid "Internal"
+msgstr "Nội bộ"
+
+#. module: sale_agency
+#: model:ir.module.category,name:sale_agency.nca_access_module_category
+msgid "NCA Access rights"
+msgstr "Quyền chung NCA"
+
+#. module: sale_agency
+#: model:ir.model.fields,field_description:sale_agency.field_crm_team_parent_id
+msgid "Parent Team"
+msgstr "Nhóm cha"
+
+#. module: sale_agency
+#: model:ir.ui.view,arch_db:sale_agency.dgn_agency_sale_form_view
+msgid "Price List"
+msgstr "Bảng giá"
+
+#. module: sale_agency
+#: model:ir.model.fields,field_description:sale_agency.field_crm_team_pricelist_id
+msgid "Price list"
+msgstr "Bảng giá"
+
+#. module: sale_agency
+#: model:ir.model,name:sale_agency.model_product_pricelist
+msgid "Pricelist"
+msgstr "Bảng giá"
+
+#. module: sale_agency
+#: model:ir.model.fields,field_description:sale_agency.field_product_pricelist_team_id
+msgid "Sale Team"
+msgstr "Nhóm"
+
+#. module: sale_agency
+#: model:res.groups,name:sale_agency.nca_group_sale_team_leader
+msgid "Sale Team leader"
+msgstr "Trưởng nhóm"
+
+#. module: sale_agency
+#: model:res.groups,name:sale_agency.nca_group_sale_team_member
+msgid "Sale Team member"
+msgstr "Thành viên"
+
+#. module: sale_agency
+#: model:ir.model,name:sale_agency.model_crm_team
+msgid "Sales Team"
+msgstr "Đội ngũ bán hàng"
+
+#. module: sale_agency
+#: model:ir.model.fields,field_description:sale_agency.field_crm_team_crm_type
+msgid "Type"
+msgstr "Loại"
+
+#. module: sale_agency
+#: model:res.groups,comment:sale_agency.nca_group_sale_team_member
+msgid "the user will have access to his own data."
+msgstr "người dùng được truy cập dữ liệu của mình."
+
+#. module: sale_agency
+#: model:res.groups,comment:sale_agency.nca_group_sale_team_leader
+msgid "the user will have access to his team data."
+msgstr "người dùng được truy cập dữ liệu của nhóm mình."
+
