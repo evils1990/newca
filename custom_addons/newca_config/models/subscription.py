@@ -63,10 +63,9 @@ class SaleSubscription(models.Model):
             order = self.env['sale.order'].browse(order_id)
             if self._context.has_key('cancel') and self._context['cancel'] == 1:
                 order.write({'subscription_management': 'cancel'})
-                order.write({'doc_type': 'cancel'})
+
             else:
                 order.write({'subscription_management': 'close'})
-                order.write({'doc_type': 'close'})
         return res
 
     @api.multi
@@ -77,7 +76,6 @@ class SaleSubscription(models.Model):
             order_id = res['res_id']
             order = self.env['sale.order'].browse(order_id)
             order.write({'subscription_management': 'free'})
-            order.write({'doc_type': 'free'})
         return res
 
 
