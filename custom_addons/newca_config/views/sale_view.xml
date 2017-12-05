@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+	<data noupdate="1">
+        <record id="product_uom_month" model="product.uom">
+            <field name="name">Month(s)</field>
+            <field eval="ref('product.uom_categ_wtime')" name="category_id"/>
+            <field name="factor" eval="30"/>
+        </record>
+    </data>
+
+	<data>
+		<record id="view_order_form" model="ir.ui.view">
+        	<field name="name">newca.sale.order.form</field>
+        	<field name="model">sale.order</field>
+        	<field name="inherit_id" ref="sale.view_order_form"/>
+        	<field name="arch" type="xml">
+				<field name="partner_shipping_id" position="after">
+					<field name="subscription_management" />
+					<field name="end_date" attrs="{'invisible': [('subscription_management', '!=', ('close'))],'required': [('subscription_management', '=', ('close'))],'readonly': [('state', '!=', 'draft')]}"/>
+					<field name="cancel_date" attrs="{'invisible': [('subscription_management', '!=', ('cancel'))],'required': [('subscription_management', '=', ('cancel'))],'readonly': [('state', '!=', 'draft')]}"/>
+				</field>
+
+				<xpath expr="//field[@name='order_line']/.." position="after">
+					<page string="Free Order Days"
+						  attrs="{'invisible': [('subscription_management', '!=', 'free')]}">
+						<group>
+							<field name="free_day_description" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							<field name="free_day_qty" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+						</group>
+					</page>
+				</xpath>
+
+        	</field>
+    	</record>
+
+		<record id="crm_team_salesteams_view_form" model="ir.ui.view">
+			<field name="name">crm.team.agency.form</field>
+			<field name="model">crm.team</field>
+			<field name="inherit_id" ref="sale.crm_team_salesteams_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='more_info']" position="inside">
+					<group string="Stock">
+						<field name="location_id"  attrs="{'required': [('crm_type', '=', 'agency')]}" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>
