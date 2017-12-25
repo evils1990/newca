@@ -15,6 +15,8 @@ class CrmTeam(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+	
+	partner_name = fields.Char('MST / CMND',related='partner_id.vat',store=True)    # res.partner VAT
 
     end_date = fields.Date(string='End Date of Subscription')
     cancel_date = fields.Date(string='Cancel Date of Subscription')

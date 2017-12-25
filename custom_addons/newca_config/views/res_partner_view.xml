@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="nca_view_form_res_partner" model="ir.ui.view">
+        <field name="name">nca.view.form.res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_vat.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="replace">
+                <field name="vat_counts" invisible="1"/>
+            </field>
+            <field name="company_type" position="after">
+                <field name="vat"
+                       attrs="{'string':'MST / CMND','required':True}"
+                       placeholder="MST / CMND"/>
+                
+            </field>
+            <group name="sale" position="after">
+                <group name="sale_persons" string="Sale Persons">
+                    <field name="sale_man_ids"/>
+                </group>
+
+            </group>
+            <field name="user_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+
+            <div name="button_box" position="after">
+                <div name="warning_box" class="oe_right">
+                    <button class="oe_stat_button"
+                            name="_check_vat" clickable="0"
+                            type="object" icon="fa-warning"
+                            string="This TIN already had subscription(s)"
+                            attrs="{'invisible':[('vat_counts','=',0)]}">
+                    </button>
+                </div>
+            </div>
+
+        </field>
+    </record>
+
+    <record id="nca_view_filter_res_partner_inherited" model="ir.ui.view">
+        <field name="name">nca.view.filter.res.partner.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="vat"/>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="nca_view_form_sale_order" model="ir.ui.view">
+        <field name="name">nca.view.form.sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_name" readonly="1"/>
+            </field>
+            <button name="action_confirm" position="attributes">
+                <attribute name="groups" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="nca_view_form_subscription_inherited" model="ir.ui.view">
+        <field name="name">nca.website.contract.subscription.inherited</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="website_contract.sale_subscription_view_form_inherit_sale_contract"/>
+        <field name="arch" type="xml">
+            <button name="%(website_contract.wizard_action)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
+            <button name="set_pending" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="%(sale_contract.sale_subscription_close_reason_wizard_action)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="%(sale_contract.sale_subscription_close_reason_wizard_action)d" context="{'cancel':1}" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="prepare_renewal_order" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+
+    <record id="nca_view_list_subscription_inherited" model="ir.ui.view">
+        <field name="name">nca.view.list.subscription.inherited</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="sale_contract.sale_subscription_view_list"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <button name="prepare_renewal_order" type="object"
+                        string="Renew"
+                        help="Create a sale order that will overwrite this contract when confirmed (renewal quotation)"
+                        confirm="Are you sure?"/>
+                <button name="%(website_contract.wizard_action)d" type="action"
+                        string="Upsell"
+                        help="Add an option directly or create a sale order with prorated discount for the current invoicing period (options are added on confirmation)"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_contract.sale_subscription_close_reason_wizard_action" model="ir.actions.act_window">
+        <field name="name">Close/Cancel Reason</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.subscription.close.reason.wizard</field>
+        <!--<field name="inherit_id" ref="sale_contract.sale_subscription_close_reason_wizard_action"/>-->
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_contract.sale_subscription_close_reason_view_form"/>
+        <field name="target">new</field>
+        <field name="src_model">sale.subscription</field>
+    </record>
+
+    <record id="nca_rule_groups_no_admin" model="ir.rule">
+        <field name="name">nca.rule.groups.no.admin</field>
+        <field name="model_id" ref="base.model_res_groups"/>
+        <field name="domain_force">
+            [('name','!=','Settings')]
+        </field>
+    </record>
+
+    <record id="nca_action_menu_sale_users" model="ir.actions.act_window">
+        <field name="name">Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.users</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="base.view_users_tree"/>
+        <field name="search_view_id" ref="base.view_users_search"/>
+        <field name="context">{'search_default_no_share': 1}</field>
+        <field name="help">Create and manage users that will connect to the system. Users can be deactivated should there be a period of time during which they will/should not connect to the system. You can assign them groups in order to give them specific access to the applications they need to use in the system.</field>
+    </record>
+
+    <record id="nca_action_res_users_view2" model="ir.actions.act_window.view">
+        <field eval="20" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="base.user_groups_view"/>
+        <field name="act_window_id" ref="nca_action_menu_sale_users"/>
+    </record>
+
+    <record id="action_res_users_view1" model="ir.actions.act_window.view">
+        <field eval="10" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="base.view_users_tree"/>
+        <field name="act_window_id" ref="nca_action_menu_sale_users"/>
+    </record>
+
+    <menuitem id="nca_menu_users" name="Users"
+              sequence="101" parent="sales_team.menu_base_partner"/>
+    <menuitem id="nca_menu_users_users" name="Users"
+              parent="nca_menu_users" action="nca_action_menu_sale_users"/>
+
+
+</odoo>
