@@ -1,2 +1,21 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
+nca_subs_access_crm_team,nca.subs.access.crm.team,newca_2.model_crm_team,sale_contract.group_sale_contract_manager,1,0,0,0
+nca_subs_access_sale_order,nca.subs.access.sale.order,sale.model_sale_order,sale_contract.group_sale_contract_manager,1,1,0,0
+nca_subs_access_sale_order_line,nca.subs.access.sale.order.line,sale.model_sale_order_line,sale_contract.group_sale_contract_manager,1,1,0,0
+nca_subs_access_sale_quote_template,nca.subs.access.sale.quote.template,website_contract.model_sale_quote_template,sale_contract.group_sale_contract_manager,1,0,0,0
+nca_subs_access_sale_quote_line,nca.subs.access.sale.quote.line,website_quote.model_sale_quote_line,sale_contract.group_sale_contract_manager,1,0,0,0
+nca_subs_access_res_partner,nca.subs.access.res.partner,newca_2.model_res_partner,sale_contract.group_sale_contract_manager,1,1,1,1
+nca_subs_access_res_users,nca.subs.access.res.users,newca_2.model_res_users,sale_contract.group_sale_contract_manager,1,1,1,0
+nca_access_acc_subscription,nca.acccess.acc.subscription,newca_2.model_sale_subscription,account.group_account_user,1,0,0,0
+"nca_access_ir_model_group_tech","ir_model group_tech","base.model_ir_model","nca_group_technical",1,1,1,1
+"nca_access_ir_model_constraint_group_tech","ir_model_constraint group_tech","base.model_ir_model_constraint","nca_group_technical",1,1,1,1
+"nca_access_ir_model_relation_group_tech","ir_model_relation group_tech","base.model_ir_model_relation","nca_group_technical",1,1,1,1
+"nca_access_ir_model_access_group_tech","ir_model_access_group_tech","base.model_ir_model_access","nca_group_technical",1,1,1,1
+"nca_access_ir_model_data_group_tech","ir_model_data group_tech","base.model_ir_model_data","nca_group_technical",1,1,1,1
+"nca_access_ir_model_fields_group_tech","ir_model_fields group_tech","base.model_ir_model_fields","nca_group_technical",1,1,1,1
+"nca_access_ir_module_category_group_tech","ir_module_category group_tech","base.model_ir_module_category","nca_group_technical",1,0,0,0
+"nca_access_ir_rule_group_tech","ir_rule group_tech","base.model_ir_rule","nca_group_technical",1,1,1,1
+"nca_access_res_company_group_tech","res_company group_tech","base.model_res_company","nca_group_technical",1,1,1,1
+"nca_access_res_groups_group_tech","res_groups group_tech","base.model_res_groups","nca_group_technical",1,1,1,1
+"nca_access_res_users_group_tech","res_users group_tech","base.model_res_users","nca_group_technical",1,1,1,1
+"nca_access_ir_logging_group_tech","ir_logging group_tech","base.model_ir_logging","nca_group_technical",1,1,1,1

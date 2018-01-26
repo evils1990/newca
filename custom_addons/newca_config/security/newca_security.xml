@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--Technical group-->
+    <record model="res.groups" id="nca_group_tecky">
+        <field name="name">Administrators</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+        <field name="comment">NCA Adminis</field>
+    </record>
+
+    <record model="ir.module.category" id="nca_access_tech_category">
+        <field name="name">NCA Technical</field>
+        <field name="description">Technical group for NCA manage</field>
+    </record>
+
+    <record id="nca_group_technical" model="res.groups">
+        <field name="name">Technical Administrator</field>
+        <field name="category_id" ref="nca_access_tech_category"/>
+        <field name="implied_ids"
+               eval="
+               [(4, ref('base.group_user')),(4, ref('stock.group_stock_manager')),(4,ref('sale_contract.group_sale_contract_manager')),
+               (4,ref('stock.group_stock_multi_locations')),(4,ref('stock.group_stock_multi_warehouses')),(4,ref('sales_team.group_sale_manager'))]"/>
+        <field name="comment">the user will have admin access rights</field>
+    </record>
+
+    <!--Sales Manager group evolve-->
+    <record id="sales_team.group_sale_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4,ref('product.group_pricelist_item')),(4,ref('product.group_sale_pricelist'))]"/>
+    </record>
+
+    <!--Subscription Management group evolve-->
+    <record id="sales_team.menu_base_partner" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('sale_contract.group_sale_contract_manager'))]"/>
+    </record>
+
+    <record id="sale.menu_sale_order" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('sale_contract.group_sale_contract_manager'))]"/>
+    </record>
+
+    <record model="ir.rule" id="nca_rule_subs_sale_order">
+        <field name="name">nca.rule.subs.sale.order</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="domain_force">
+            [('state','!=','draft')]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_contract.group_sale_contract_manager'))]"/>
+    </record>
+
+    <record model="ir.rule" id="nca_rule_subs_account_invoice">
+        <field name="name">nca.rule.subs.account.invoice</field>
+        <field name="model_id" ref="website_portal_sale.model_account_invoice"/>
+        <field name="domain_force">
+            [(1,'=',1)]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_contract.group_sale_contract_manager'))]"/>
+    </record>
+
+    <!--Accountant group evolve-->
+    <record id="sales_team.menu_base_partner" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+    </record>
+
+    <record id="sale.menu_sale_order" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+    </record>
+
+    <record id="nca_rule_accountant_account_invoice" model="ir.rule">
+        <field name="name">nca.rule.accountant.account.invoice</field>
+        <field name="model_id" ref="website_portal_sale.model_account_invoice"/>
+        <field name="domain_force">
+            [('state','!=','draft')]
+        </field>
+        <field name="groups" eval="[(4,ref('account.group_account_user'))]"/>
+    </record>
+
+    <record id="nca_rule_accountant_sale_subscription" model="ir.rule">
+        <field name="name">nca.rule.accountant.sale.subscription</field>
+        <field name="model_id" ref="sale_contract.model_sale_subscription"/>
+        <field name="domain_force">
+            [(1,'=',1)]
+        </field>
+        <field name="groups" eval="[(4,ref('account.group_account_user'))]"/>
+    </record>
+
+    <!--Billing group evolve-->
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <record id="nca_rule_bill_account_invoice" model="ir.rule">
+        <field name="name">nca.rule.bill.account.invoice</field>
+        <field name="model_id" ref="website_portal_sale.model_account_invoice"/>
+        <field name="domain_force">
+            [('user_id','=',user.id)]
+        </field>
+        <field name="groups" eval="[(4,ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <!--Sale Team Member group evolve-->
+    <record id="sale_agency.nca_group_sale_team_member" model="res.groups">
+        <field name="implied_ids" eval="[(4,ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <record id="nca_rule_team_member_subscription" model="ir.rule">
+        <field name="name">nca.rule.team.member.subscription</field>
+        <field name="model_id" ref="sale_contract.model_sale_subscription"/>
+        <field name="domain_force">
+            [('user_id','=',user.id)]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_member'))]"/>
+    </record>
+
+    <record id="nca_rule_sale_member_res_partner" model="ir.rule">
+        <field name="name">nca.rule.sale.member.res.partner</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">
+            ['|',('sale_man_ids','in',[user.id]),('sale_man_ids','=',False)]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_member'))]"/>
+    </record>
+
+    <!--Sale Team Leader groups evolve-->
+    <record model="ir.rule" id="nca_rule_invoice_team_leader">
+        <field name="name">nca.rule.invoice.team.leader</field>
+        <field name="model_id" ref="website_portal_sale.model_account_invoice"/>
+        <field name="domain_force">
+            [('user_id.team_id','=',user.sale_team_id.id)]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_leader'))]"/>
+    </record>
+
+    <record id="nca_rule_team_leader_subscription" model="ir.rule">
+        <field name="name">nca.rule.team.leader.subscription</field>
+        <field name="model_id" ref="sale_contract.model_sale_subscription"/>
+        <field name="domain_force">
+            ['|',('user_id.sale_team_id','=',user.sale_team_id.id),('user_id.sale_team_id','child_of',user.sale_team_id.id)]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_leader'))]"/>
+    </record>
+
+    <record id="nca_rule_sale_leader_res_partner" model="ir.rule">
+        <field name="name">nca.rule.sale.leader.res.partner</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">
+            ['|',('sale_man_ids.sale_team_id','in',[user.sale_team_id.id]),('sale_man_ids.sale_team_id','child_of',[user.sale_team_id.id])]
+        </field>
+        <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_leader'))]"/>
+    </record>
+
+
+</odoo>

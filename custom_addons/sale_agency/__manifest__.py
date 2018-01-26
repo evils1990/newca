@@ -1,5 +1,5 @@
 {
-    'name':'DGN Sale Agency Extend',
+    'name':'NewCA Sale Agency Extend',
     'description':'Agency Extension for Sale Team',
     'author':'Evils',
     'depends':['sale'],

@@ -15,8 +15,12 @@ class CrmTeam(models.Model):
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
-	
-	partner_name = fields.Char('MST / CMND',related='partner_id.vat',store=True)    # res.partner VAT
+
+    partner_name = fields.Char('MST / CMND',related='partner_id.vat',store=True)    # res.partner VAT
+
+    partner_id=fields.Many2one('res.partner', string='Customer', readonly=True,
+                               states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+                               required=True, change_default=True, index=True, track_visibility='always')
 
     end_date = fields.Date(string='End Date of Subscription')
     cancel_date = fields.Date(string='Cancel Date of Subscription')
@@ -156,12 +160,23 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def _action_procurement_create(self):
+        # context = {'agency_location': self.order_id.team_id.location_id.id}
 
         if not self._context.has_key('agency_location'):
+            # context = {}
+
             for record in self:
                 if record.order_id and record.order_id.team_id and record.order_id.team_id.crm_type == 'agency':
-                    context = {'agency_location': self.order_id.team_id.location_id.id } # Force delivery from team location
+                    context = {'agency_location': record.order_id.team_id.location_id.id } # Force delivery from team location; fixed
                     return super(SaleOrderLine, self).with_context(context)._action_procurement_create()
+
+            # if context.has_key('agency_location'):
+            #     return super(SaleOrderLine, self).with_context(context)._action_procurement_create()
+            # if self.order_id and self.order_id.team_id and self.order_id.team_id.crm_type == 'agency':
+            #     context = {'agency_location': self.order_id.team_id.location_id.id}
+            #     return super(SaleOrderLine, self).with_context(context)._action_procurement_create()
+
+        # return super(SaleOrderLine, self).with_context(context)._action_procurement_create()
 
         return super(SaleOrderLine, self)._action_procurement_create()
 

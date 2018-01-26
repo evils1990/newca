@@ -78,5 +78,9 @@ class SaleSubscription(models.Model):
             order.write({'subscription_management': 'free'})
         return res
 
-
+    @api.multi
+    def check_subscription_vat(self,vat):
+        res={}
+        res=self.search([('partner_id','=',vat)])
+        return res
 

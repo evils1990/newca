@@ -2,6 +2,16 @@
 <odoo>
 	<data>
 
-
+        <!--Invoice form hide payment for Billing-->
+        <record model="ir.ui.view" id="nca_view_form_account_invoice">
+            <field name="name">nca.view.form.account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <button name="%(account.action_account_invoice_payment)d" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </button>
+            </field>
+        </record>
     </data>
 </odoo>

@@ -45,62 +45,106 @@
 				</xpath>
 			</field>
 		</record>
-	
-	<!-- Confirm button -->
-	
-	<record id="nca_view_form_sale_order" model="ir.ui.view">
+
+	</data>
+
+	<!--Sale Order views-->
+	<!--Sale Order tree hide money for Subscription Management group-->
+    <record id="nca_view_tree_sale_order" model="ir.ui.view">
+        <field name="name">nca.view.tree.sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="nca_view_tree_sale_order_quotation">
+        <field name="name">nca.view.tree.sale.order.quotation</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!--Sale Quotation hide sale order done or cancel-->
+    <record id="sale.action_quotations" model="ir.actions.act_window">
+        <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+    </record>
+
+    <!--Sale Order form hide confirm, create invoice for Subscription Management group-->
+    <record id="nca_view_form_sale_order" model="ir.ui.view">
         <field name="name">nca.view.form.sale.order</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="partner_name" readonly="1"/>
-            </field>
-            <button name="action_confirm" position="attributes">
-                <attribute name="groups" eval="[(4,ref('sales_team.group_sale_salesman_all_leads'))]"/>
+            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+                <attribute name="groups">sale_contract.group_sale_contract_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="groups">sale_contract.group_sale_contract_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman</attribute>
+            </xpath>
+            <xpath expr="//button[@name=%(sale.action_view_sale_advance_payment_inv)d][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//button[@name=%(sale.action_view_sale_advance_payment_inv)d][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+
+            <button name="action_view_invoice" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
             </button>
+
+            <!--Hide money for Subscription groups-->
+            <xpath expr="//field[@name='price_unit'][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_unit'][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount'][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount'][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_id'][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_id'][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal'][1]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal'][2]" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_total']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_tax']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_salesman,account.group_account_user</attribute>
+            </xpath>
         </field>
     </record>
-	
-	<!-- Sales user menu -->
-	
-	<record id="nca_rule_groups_no_admin" model="ir.rule">
-        <field name="name">nca.rule.groups.no.admin</field>
-        <field name="model_id" ref="base.model_res_groups"/>
-        <field name="domain_force">
-            [('name','!=','Settings')]
-        </field>
-    </record>
-	
-	<record id="nca_action_menu_sale_users" model="ir.actions.act_window">
-        <field name="name">Users</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.users</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="base.view_users_tree"/>
-        <field name="search_view_id" ref="base.view_users_search"/>
-        <field name="context">{'search_default_no_share': 1}</field>
-        <field name="help">Create and manage users that will connect to the system. Users can be deactivated should there be a period of time during which they will/should not connect to the system. You can assign them groups in order to give them specific access to the applications they need to use in the system.</field>
-    </record>
 
-    <record id="nca_action_res_users_view2" model="ir.actions.act_window.view">
-        <field eval="20" name="sequence"/>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="base.user_groups_view"/>
-        <field name="act_window_id" ref="nca_action_menu_sale_users"/>
-    </record>
-
-    <record id="action_res_users_view1" model="ir.actions.act_window.view">
-        <field eval="10" name="sequence"/>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="base.view_users_tree"/>
-        <field name="act_window_id" ref="nca_action_menu_sale_users"/>
-    </record>
-
-    <menuitem id="nca_menu_users" name="Users"
-              sequence="101" parent="sales_team.menu_base_partner"/>
-    <menuitem id="nca_menu_users_users" name="Users"
-              parent="nca_menu_users" action="nca_action_menu_sale_users"/>
-
-	</data>
 </odoo>

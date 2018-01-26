@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--Users manage menu-->
+    <!--Users tree view-->
+    <record id="nca_view_tree_res_users" model="ir.ui.view">
+        <field name="name">Users</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="login"/>
+                <field name="phone"/>
+                <field name="sale_team_id"/>
+                <field name="login_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Users search view-->
+    <record id="nca_view_search_res_users" model="ir.ui.view">
+        <field name="name">nca.view.search.res.users</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="login"/>
+                <field name="phone"/>
+                <separator/>
+                <filter name="active_users" string="Active Users" domain="[('active','!=',False)]"/>
+                <filter name="inactive_users" string="Inactive Users" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Users act window-->
+    <record id="nca_action_res_users" model="ir.actions.act_window">
+        <field name="name">User</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="nca_view_tree_res_users"/>
+        <field name="search_view_id" ref="nca_view_search_res_users"/>
+        <field name="domain">[('login','!=','admin')]</field>
+        <field name="context">{'search_default_active_users':1}</field>
+        <field name="help">Manage users</field>
+    </record>
+    <record id="nca_action_res_users_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="nca_view_tree_res_users"/>
+        <field name="act_window_id" ref="nca_action_res_users"/>
+    </record>
+    <record id="nca_action_res_users_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="base.user_groups_view"/>
+        <field name="act_window_id" ref="nca_action_res_users"/>
+    </record>
+
+    <!--Users manager menu-->
+    <menuitem id="nca_menu_res_users" name="Setting"
+              groups="nca_group_technical"
+              sequence="451"/>
+    <menuitem id="nca_menu_res_users_users" name="Users"
+              action="nca_action_res_users"
+              parent="nca_menu_res_users"/>
+
+</odoo>
