@@ -83,6 +83,11 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+		
+			<field name="partner_id" position="after">
+				<field name="partner_name" readonly="1"/>
+			</field>
+		
             <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
                 <attribute name="groups">sale_contract.group_sale_contract_manager</attribute>
             </xpath>
