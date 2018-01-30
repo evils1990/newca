@@ -124,7 +124,7 @@
         <field name="name">nca.rule.invoice.team.leader</field>
         <field name="model_id" ref="website_portal_sale.model_account_invoice"/>
         <field name="domain_force">
-            [('user_id.team_id','=',user.sale_team_id.id)]
+            [('user_id.sale_team_id','=',user.sale_team_id.id)]
         </field>
         <field name="groups" eval="[(4,ref('sale_agency.nca_group_sale_team_leader'))]"/>
     </record>

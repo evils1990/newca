@@ -43,6 +43,11 @@
 						<field name="location_id"  attrs="{'required': [('crm_type', '=', 'agency')]}" />
 					</group>
 				</xpath>
+				
+				<!--show more info page for Sales Manager-->
+                <xpath expr="//page[@name='more_info']" position="attributes">
+					<attribute name="groups">sales_team.group_sale_manager</attribute>
+				</xpath>
 			</field>
 		</record>
 
