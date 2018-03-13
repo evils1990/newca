@@ -1,5 +1,0 @@
-import sale_subscription
-import sale_subscription_wizard
-import payment_acquirer
-import sale_order
-import sale_quote_template
